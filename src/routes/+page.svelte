@@ -10,15 +10,18 @@
 	const LOCATORS = [
 		'https://docs.google.com/spreadsheets/d/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U',
 		'https://sheets.googleapis.com/v4/spreadsheets/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/values/A:ZZZ1',
+		'https://forms.gle/ipLF7tw1q9QoWbRx6',
+		'https://forms.gle/usxw2yXKxQH9if7v9',
 		'https://forms.gle/QJYo684gH5yw1wnKA',
-		'https://docs.google.com/forms/d/e/1FAIpQLSfXm6FkpT5GbnFxUs_oeDXXnhLiMGJbzIPb0NeQNGFKurUqsQ/viewform'
+		'https://docs.google.com/forms/d/e/1FAIpQLSfXm6FkpT5GbnFxUs_oeDXXnhLiMGJbzIPb0NeQNGFKurUqsQ/viewform',
+		'https://docs.google.com/forms/d/e/1FAIpQLSdUhjCpWsvcXBU7rm2e1-WRrMl2YP1phSukRrFYyu1H1OLJ9A/viewform'
 	];
 
-	let result = 'No results, yet.';
-
 	// bindings:
+	let result = 'No results, yet.';
 	let method = 'GET';
 	let revalidate = false;
+	let html = '';
 
 	async function handleClick(this: HTMLAnchorElement, e: MouseEvent) {
 		const fetchOptions: FetchOptions = { method, headers: {} };
@@ -34,7 +37,12 @@
 		if (method === 'HEAD') {
 			result += resp.headers.get('generated-at');
 		} else {
-			result += `${JSON.stringify(await resp.json(), null, 4)}`;
+			const json = await resp.json();
+			result += `${JSON.stringify(json, null, 4)}`;
+
+			if (json.json.html) {
+				html = json.json.html;
+			}
 		}
 	}
 
@@ -71,4 +79,6 @@
 	{/each}
 
 	<pre>{result}</pre>
+
+	{@html html}
 </main>
