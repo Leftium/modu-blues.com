@@ -11,10 +11,11 @@
 				<p>{@html field.titleHtml}</p>
 				{@html field.descriptionHtml}
 			{:else if field.type === 'IMAGE'}
-				<img src={field.imgUrl} />
+				<img src={field.imgUrl} alt="alt" />
 			{:else if field.type === 'VIDEO'}
 				<div class="wrap-youtube">
 					<iframe
+						title="YouTube Video"
 						class="youtube"
 						src="https://www.youtube.com/embed/{field.youtubeId}/?rel=0&controls=1&modestbranding=1"
 						allowfullscreen
