@@ -1,27 +1,42 @@
 <script lang="ts">
 	import '../app.scss';
 
-	const URL = '/api/isr/google-sheets/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U';
-
-	let result = 'No results, yet.';
-
 	type FetchOptions = {
 		method: string;
 		headers: Record<string, string>;
 	};
 
-	async function handleClick(this: HTMLButtonElement) {
-		const method = this.dataset.method ?? 'ERROR';
-		const revalidate = 'revalidate' in this.dataset;
+	const LOCATORS = [
+		'https://docs.google.com/spreadsheets/d/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/edit?resourcekey#gid=426369713',
+		'https://sheets.googleapis.com/v4/spreadsheets/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/values/A:ZZZ1?key=AIzaSyDI-_ALr1kkTzo9VNZwwZnJlHNaJUJCj8U',
+		'https://forms.gle/QJYo684gH5yw1wnKA',
+		'https://docs.google.com/forms/d/e/1FAIpQLSfXm6FkpT5GbnFxUs_oeDXXnhLiMGJbzIPb0NeQNGFKurUqsQ/viewform'
+	];
 
+	let result = 'No results, yet.';
+
+	// bindings:
+	let method = 'GET';
+	let revalidate = false;
+
+	async function handleClick(this: HTMLAnchorElement, e: MouseEvent) {
 		const fetchOptions: FetchOptions = { method, headers: {} };
+
+		if (e.ctrlKey) {
+			if (e.altKey) {
+				revalidate = true;
+			} else {
+				revalidate = false;
+			}
+		}
+
 		if (revalidate) {
 			fetchOptions.headers['x-prerender-revalidate'] = 'TrueTrueTrueTrueTrueTrueTrueTrue';
 		}
 
-		const resp = await fetch(URL, fetchOptions);
+		const resp = await fetch(this.href, fetchOptions);
 
-		result = `${method}\n\n${revalidate}\n\n`;
+		result = `href: ${this.href}\n\nmethod: ${method}\n\nrevalidate: ${revalidate}\n\n`;
 
 		if (method === 'HEAD') {
 			result += resp.headers.get('generated-at');
@@ -32,27 +47,15 @@
 </script>
 
 <main class="container">
-	<p>
-		<button on:click={handleClick} data-method="GET"> GET /api/isr/google-sheets/[id] </button>
-	</p>
+	<label><input type="radio" bind:group={method} value="GET" /> GET</label>
+	<label><input type="radio" bind:group={method} value="HEAD" /> HEAD</label>
 
-	<p>
-		<button on:click={handleClick} data-method="GET" data-revalidate>
-			GET /api/isr/google-sheets/[id] (revalidate)</button
-		>
-	</p>
+	<label><input type="checkbox" bind:checked={revalidate} /> Revalidate</label>
 
-	<p>
-		<button on:click={handleClick} data-method="HEAD"> HEAD /api/isr/google-sheets/[id] </button>
-	</p>
-
-	<p>
-		<button on:click={handleClick} data-method="HEAD" data-revalidate>
-			HEAD /api/isr/google-sheets/[id] (revalidate)
-		</button>
-	</p>
-
-	<p><a href={URL}>/api/isr/google-sheets/[id]</a></p>
+	{#each LOCATORS as locator}
+		{@const href = `/api/isr/${locator}`}
+		<p><a on:click|preventDefault={handleClick} {href}>{href}</a></p>
+	{/each}
 
 	<pre>{result}</pre>
 </main>
