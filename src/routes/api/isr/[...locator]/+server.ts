@@ -82,7 +82,6 @@ interface Question {
 	mediaWidth?: number;
 	mediaHeight?: number;
 	imgUrl?: string;
-	videoUrl?: string;
 	mediaMetaData?: unknown;
 	field?: unknown;
 }
@@ -195,28 +194,21 @@ function parseGoogleForm(html: string) {
 		.map((_, itemDiv) => {
 			const itemId = $(itemDiv).find('[data-item-id]').attr('data-item-id')?.toString();
 			const imgUrl = $(itemDiv).find('img').attr('src')?.toString();
-			const videoUrl = $(itemDiv).find('iframe').attr('src')?.toString() || '';
-
-			const youtubeId = videoUrl.match(/https:..youtu.be\/(.*)/)?.[1];
 
 			return {
 				itemId,
-				imgUrl,
-				youtubeId
+				imgUrl
 			};
 		})
 		.toArray();
 
-	media.map(({ imgUrl, videoUrl }, index) => {
+	media.map(({ imgUrl }, index) => {
 		if (form.questions[index]) {
 			if (imgUrl) {
 				form.questions[index].imgUrl = imgUrl;
 			}
-			if (videoUrl) {
-				form.questions[index].videoUrl = videoUrl;
-			}
 		} else {
-			console.log({ index, imgUrl, videoUrl });
+			console.log({ index, imgUrl });
 		}
 	});
 
