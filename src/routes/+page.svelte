@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import '../app.scss';
 
 	type FetchOptions = {
@@ -7,8 +8,8 @@
 	};
 
 	const LOCATORS = [
-		'https://docs.google.com/spreadsheets/d/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/edit?resourcekey#gid=426369713',
-		'https://sheets.googleapis.com/v4/spreadsheets/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/values/A:ZZZ1?key=AIzaSyDI-_ALr1kkTzo9VNZwwZnJlHNaJUJCj8U',
+		'https://docs.google.com/spreadsheets/d/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U',
+		'https://sheets.googleapis.com/v4/spreadsheets/13vBBjqXnVfXk4zu-rcj7b3XG_BFxNPKBJgywckdIO_U/values/A:ZZZ1',
 		'https://forms.gle/QJYo684gH5yw1wnKA',
 		'https://docs.google.com/forms/d/e/1FAIpQLSfXm6FkpT5GbnFxUs_oeDXXnhLiMGJbzIPb0NeQNGFKurUqsQ/viewform'
 	];
@@ -21,14 +22,6 @@
 
 	async function handleClick(this: HTMLAnchorElement, e: MouseEvent) {
 		const fetchOptions: FetchOptions = { method, headers: {} };
-
-		if (e.ctrlKey) {
-			if (e.altKey) {
-				revalidate = true;
-			} else {
-				revalidate = false;
-			}
-		}
 
 		if (revalidate) {
 			fetchOptions.headers['x-prerender-revalidate'] = 'TrueTrueTrueTrueTrueTrueTrueTrue';
@@ -44,6 +37,26 @@
 			result += `${JSON.stringify(await resp.json(), null, 4)}`;
 		}
 	}
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.altKey) {
+			method = method === 'GET' ? 'HEAD' : 'GET';
+			e.preventDefault();
+		}
+
+		if (e.shiftKey) {
+			revalidate = !revalidate;
+			e.preventDefault();
+		}
+	}
+
+	onMount(function () {
+		document.addEventListener('keydown', handleKeydown);
+
+		return function () {
+			document.removeEventListener('keydown', handleKeydown);
+		};
+	});
 </script>
 
 <main class="container">
