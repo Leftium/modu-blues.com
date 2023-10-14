@@ -195,12 +195,14 @@ function parseGoogleForm(html: string) {
 		.map((_, itemDiv) => {
 			const itemId = $(itemDiv).find('[data-item-id]').attr('data-item-id')?.toString();
 			const imgUrl = $(itemDiv).find('img').attr('src')?.toString();
-			const videoUrl = $(itemDiv).find('iframe').attr('src')?.toString();
+			const videoUrl = $(itemDiv).find('iframe').attr('src')?.toString() || '';
+
+			const youtubeId = videoUrl.match(/https:..youtu.be\/(.*)/)?.[1];
 
 			return {
 				itemId,
 				imgUrl,
-				videoUrl
+				youtubeId
 			};
 		})
 		.toArray();
