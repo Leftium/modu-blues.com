@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import '../app.scss';
 
 	export let data;
@@ -7,7 +8,8 @@
 <center>
 	{#each data?.json?.values || [] as row, index}
 		{#if row[1] && index !== 0}
-			<a href="/{row[0]}">{row[1]}</a>
+			{@const pathName = '/' + row[0]}
+			<a href={pathName} class:active={$page.url.pathname === `${pathName}`}>{row[1]}</a>
 			{#if index < data?.json?.values.length - 1}
 				|&nbsp;
 			{/if}
@@ -20,3 +22,9 @@
 
 	<pre>{JSON.stringify(data.json, null, 4)}</pre>
 </main>
+
+<style>
+	a.active {
+		font-weight: bold;
+	}
+</style>
