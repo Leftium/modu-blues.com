@@ -1,6 +1,8 @@
 <script lang="ts">
 	import '../../../app.scss';
 
+	import { marked } from 'marked';
+
 	export let data;
 </script>
 
@@ -12,8 +14,11 @@
 	{#each data.formJson.fields as field}
 		<div>
 			{#if field.type === 'TITLE_AND_DESCRIPTION'}
-				<p>{@html field.titleHtml}</p>
-				{@html field.descriptionHtml}
+				<center>
+					<h1>{@html marked.parse(field.title)}</h1>
+				</center>
+
+				{@html marked.parse(field.description)}
 			{:else if field.type === 'IMAGE'}
 				<img src={field.imgUrl} alt="alt" />
 			{:else if field.type === 'VIDEO'}

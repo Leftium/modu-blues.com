@@ -32,6 +32,9 @@ devDependencies:
   eslint-plugin-svelte:
     specifier: ^2.30.0
     version: 2.34.0(eslint@8.51.0)(svelte@4.2.1)
+  marked:
+    specifier: ^9.1.2
+    version: 9.1.2
   prettier:
     specifier: ^2.8.0
     version: 2.8.8
@@ -1408,6 +1411,12 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /marked@9.1.2:
+    resolution: {integrity: sha512-qoKMJqK0w6vkLk8+KnKZAH6neUZSNaQqVZ/h2yZ9S7CbLuFHyS2viB0jnqcWF9UKjwsAbMrQtnQhdmdvOVOw9w==}
+    engines: {node: '>= 16'}
+    hasBin: true
     dev: true
 
   /mdn-data@2.0.30:
