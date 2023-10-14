@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '../../../app.scss';
-
 	import { marked } from 'marked';
 
 	export let data;

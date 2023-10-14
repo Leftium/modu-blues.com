@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import '../app.scss';
 
 	type FetchOptions = {
 		method: string;

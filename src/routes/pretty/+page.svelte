@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '../../app.scss';
-
 	let url = 'https://forms.gle/ipLF7tw1q9QoWbRx6';
 </script>
 
