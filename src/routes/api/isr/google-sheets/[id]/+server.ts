@@ -5,7 +5,7 @@ import { GCP_API_KEY } from '$env/static/private';
 export const config = {
 	isr: {
 		expiration: 10,
-		bypassToken: 'true'
+		bypassToken: 'truetruetruetruetruetruetruetrue'
 	}
 };
 

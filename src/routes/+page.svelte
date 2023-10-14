@@ -16,7 +16,7 @@
 
 		const fetchOptions: FetchOptions = { method, headers: {} };
 		if (revalidate) {
-			fetchOptions.headers['x-prerender-revalidate'] = 'true';
+			fetchOptions.headers['x-prerender-revalidate'] = 'false'; //'truetruetruetruetruetruetruetrue';
 		}
 
 		const resp = await fetch(URL, fetchOptions);
