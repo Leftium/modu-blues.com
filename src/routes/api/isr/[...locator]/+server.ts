@@ -27,6 +27,7 @@ enum GoogleFormsFieldTypeEnum {
 	DROPDOWN = 3,
 	CHECKBOXES = 4,
 	SCALE = 5,
+	TITLE_AND_DESCRIPTION = 6,
 	GRID = 7,
 	FILE_UPLOAD = 8,
 	DATE = 9,
