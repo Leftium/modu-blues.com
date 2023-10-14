@@ -4,6 +4,10 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>{data.formJson.title}</title>
+</svelte:head>
+
 <main class="container">
 	{#each data.formJson.fields as field}
 		<div>

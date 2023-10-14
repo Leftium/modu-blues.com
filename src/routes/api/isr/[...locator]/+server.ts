@@ -45,6 +45,7 @@ enum EmailCollectionRuleEnum {
 type EmailOptions = 'NONE' | 'VERIFIED' | 'INPUT';
 
 interface Form {
+	filename: string;
 	headerImageUrl: string | null;
 	title: string;
 	titleHtml?: string;
@@ -94,7 +95,8 @@ function parseGoogleForm(html: string) {
 
 	const description = jArray[1]?.[0] ?? null;
 	const descriptionHtml = jArray[1]?.[24]?.[1] ?? null;
-	const title = jArray[3] ?? null;
+	const filename = jArray[3] ?? null;
+	const title = jArray[1]?.[8] ?? null;
 	const titleHtml = jArray[1]?.[25]?.[1] ?? null;
 	const collectEmailsCodeValue = jArray[1]?.[10]?.[6] ?? null;
 	const collectEmailsEnum = EmailCollectionRuleEnum[collectEmailsCodeValue];
@@ -103,6 +105,7 @@ function parseGoogleForm(html: string) {
 	const arrayOfFields = jArray[1]?.[1] ?? [];
 
 	const form: Form = {
+		filename,
 		headerImageUrl: null,
 		title,
 		titleHtml,
