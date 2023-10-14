@@ -3,6 +3,7 @@ import { json as jsonResponse } from '@sveltejs/kit';
 import { GCP_API_KEY } from '$env/static/private';
 
 export const config = {
+	runtime: 'edge',
 	isr: {
 		expiration: 10,
 		bypassToken: 'TrueTrueTrueTrueTrueTrueTrueTrue'
