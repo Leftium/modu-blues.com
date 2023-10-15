@@ -6,13 +6,10 @@
 </script>
 
 <center>
-	{#each data?.json?.values || [] as row, index}
-		{#if row[1] && index !== 0}
-			{@const pathName = '/' + row[0]}
-			<a href={pathName} class:active={$page.url.pathname === `${pathName}`}>{row[1]}</a>
-			{#if index < data?.json?.values.length - 1}
-				|&nbsp;
-			{/if}
+	{#each data.routes as route, index}
+		<a href={route.path} class:active={$page.url.pathname === `${route.path}`}>{route.title}</a>
+		{#if index < data.routes.length - 1}
+			|&nbsp;
 		{/if}
 	{/each}
 </center>
@@ -20,7 +17,7 @@
 <main class="container">
 	<slot />
 
-	<pre>{JSON.stringify(data.json, null, 4)}</pre>
+	<pre>{JSON.stringify(data.routes, null, 4)}</pre>
 </main>
 
 <style>
