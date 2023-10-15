@@ -8,13 +8,14 @@ export const load = async ({ fetch }) => {
 	const values = [...json.json.values];
 	values.shift();
 
+	const routeMap: Record<string, unknown> = {};
 	const routes = values.map(([path, title, formUrl]) => {
-		return {
-			path: '/' + path,
-			title,
-			formUrl
-		};
+		path = '/' + path;
+
+		routeMap[path] = { title, formUrl };
+
+		return { path, title, formUrl };
 	});
 
-	return { routes };
+	return { routes, routeMap };
 };

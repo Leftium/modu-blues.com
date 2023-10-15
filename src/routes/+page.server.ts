@@ -1,6 +1,9 @@
 import { load as prettyFormLoad } from './pretty/form/+page.server';
 
-export function load({ url, fetch }) {
-	url.searchParams.set('u', 'https://forms.gle/ipLF7tw1q9QoWbRx6');
-	return prettyFormLoad({ url, fetch });
+export async function load({ url, fetch, parent }) {
+	const { routeMap } = await parent();
+	const pathname = url.pathname;
+
+	url.searchParams.set('u', routeMap[pathname].formUrl);
+	return prettyFormLoad({ url, fetch, parent });
 }
