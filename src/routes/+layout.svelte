@@ -24,6 +24,10 @@
 </main>
 
 <style>
+	:h1 {
+		--pico-font-size: 1.6em;
+	}
+
 	nav {
 		justify-content: center;
 	}
