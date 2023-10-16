@@ -129,10 +129,10 @@ function parseGoogleForm(html: string) {
 		const itemId = field[0];
 
 		const questionText = field[1] as string;
-		const questionDescription = field[2] as string;
+		const questionDescription = (field[2] || '') as string;
 
 		const questionTextHtml = field[11]?.[1] as string;
-		const questionDescriptionHtml = field[12]?.[1] as string;
+		const questionDescriptionHtml = (field[12]?.[1] || '') as string;
 
 		const questionTypeCodeValue = field[3];
 

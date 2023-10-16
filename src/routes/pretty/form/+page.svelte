@@ -41,13 +41,17 @@
 							allowfullscreen
 						/>
 					</div>
-				{:else if field.type === 'PARAGRAPH_TEXT'}
+				{:else if ['PARAGRAPH_TEXT', 'TEXT'].includes(field.type)}
 					<label for="entry.{field.id}">
 						{@html parseMarkdown(turndown(field.titleHtml))}
 					</label>
 					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
-					<textarea id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
 
+					{#if field.type === 'PARAGRAPH_TEXT'}
+						<textarea id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
+					{:else if field.type === 'TEXT'}
+						<input id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
+					{/if}
 					<pre>{JSON.stringify(field, null, 4)}</pre>
 				{:else}
 					TODO: {field.type}
