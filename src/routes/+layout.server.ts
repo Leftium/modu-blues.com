@@ -1,9 +1,10 @@
 import { error } from '@sveltejs/kit';
 
-export const load = async ({ fetch }) => {
+export const load = async ({ fetch, url }) => {
 	console.log('+layout.server load');
 	const resp = await fetch(
-		'/api/isr/https://docs.google.com/spreadsheets/d/1uFQ8W20dkHr01KB_zaoUkLU_1YhIAt7DtNOUNiHqKAk/edit'
+		url.origin +
+			'/api/isr/https://docs.google.com/spreadsheets/d/1uFQ8W20dkHr01KB_zaoUkLU_1YhIAt7DtNOUNiHqKAk/edit'
 	);
 
 	console.log(resp);
