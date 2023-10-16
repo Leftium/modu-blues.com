@@ -52,6 +52,18 @@
 					{:else if field.type === 'TEXT'}
 						<input id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
 					{/if}
+				{:else if field.type === 'DROPDOWN'}
+					<label for="entry.{field.id}">
+						{@html parseMarkdown(turndown(field.titleHtml))}
+					</label>
+					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+
+					<select id="entry.{field.id}" name="entry.{field.id}" required={field.required}>
+						<option value="">Choose</option>
+						{#each field.options as option}
+							<option value={option}>{option}</option>
+						{/each}
+					</select>
 					<pre>{JSON.stringify(field, null, 4)}</pre>
 				{:else}
 					TODO: {field.type}
