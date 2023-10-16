@@ -11,6 +11,7 @@ export const load = async ({ url, fetch }) => {
 		headerImageUrl: json.json.headerImageUrl,
 		title: json.json.title,
 		collectEmails: json.json.collectEmails,
+		hasInput: false,
 		fields: json.json.questions
 	};
 
@@ -27,6 +28,12 @@ export const load = async ({ url, fetch }) => {
 		options: [],
 		required: false
 	});
+
+	const types = formJson.fields.map((field: { type: string }) => field.type);
+
+	if (types.includes('PARAGRAPH_TEXT')) {
+		formJson.hasInput = true;
+	}
 
 	return { formJson };
 };

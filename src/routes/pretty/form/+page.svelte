@@ -14,30 +14,38 @@
 </svelte:head>
 
 <main class="container">
-	{#each data.formJson.fields as field}
-		<div>
-			{#if field.type === 'TITLE_AND_DESCRIPTION'}
-				<center>
-					<h1>{@html marked.parse(turndown(field.titleHtml))}</h1>
-				</center>
+	<form method="POST">
+		{#if data.formJson.hasInput}
+			<button>Submit</button>
+		{/if}
+		{#each data.formJson.fields as field}
+			<div>
+				{#if field.type === 'TITLE_AND_DESCRIPTION'}
+					<center>
+						<h1>{@html marked.parse(turndown(field.titleHtml))}</h1>
+					</center>
+					{@html marked.parse(turndown(field.descriptionHtml))}
+				{:else if field.type === 'IMAGE'}
+					<img src={field.imgUrl} alt="alt" />
+				{:else if field.type === 'VIDEO'}
+					<div class="wrap-youtube">
+						<iframe
+							title="YouTube Video"
+							class="youtube"
+							src="https://www.youtube.com/embed/{field.youtubeId}/?rel=0&controls=1&modestbranding=1"
+							allowfullscreen
+						/>
+					</div>
+				{:else if field.type === 'PARAGRAPH_TEXT'}
+					<textarea name="entry.{field.id}" required={field.required} />
 
-				{@html marked.parse(turndown(field.descriptionHtml))}
-			{:else if field.type === 'IMAGE'}
-				<img src={field.imgUrl} alt="alt" />
-			{:else if field.type === 'VIDEO'}
-				<div class="wrap-youtube">
-					<iframe
-						title="YouTube Video"
-						class="youtube"
-						src="https://www.youtube.com/embed/{field.youtubeId}/?rel=0&controls=1&modestbranding=1"
-						allowfullscreen
-					/>
-				</div>
-			{:else}
-				TODO: {field.type}
-			{/if}
-		</div>
-	{/each}
+					<pre>{JSON.stringify(field, null, 4)}</pre>
+				{:else}
+					TODO: {field.type}
+				{/if}
+			</div>
+		{/each}
+	</form>
 
 	<div>
 		<hr />
