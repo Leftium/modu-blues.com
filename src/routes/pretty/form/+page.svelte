@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { marked } from 'marked';
 
+	import TurndownService from 'turndown';
+
+	const turndownService = new TurndownService();
+	const turndown = (html: string) => turndownService.turndown(html);
+
 	export let data;
 </script>
 
@@ -13,10 +18,10 @@
 		<div>
 			{#if field.type === 'TITLE_AND_DESCRIPTION'}
 				<center>
-					<h1>{@html marked.parse(field.title)}</h1>
+					<h1>{@html marked.parse(turndown(field.titleHtml))}</h1>
 				</center>
 
-				{@html marked.parse(field.description)}
+				{@html marked.parse(turndown(field.descriptionHtml))}
 			{:else if field.type === 'IMAGE'}
 				<img src={field.imgUrl} alt="alt" />
 			{:else if field.type === 'VIDEO'}
@@ -34,7 +39,7 @@
 		</div>
 	{/each}
 
-	<div hidden>
+	<div>
 		<hr />
 		<pre>{JSON.stringify(data.formJson, null, 4)}</pre>
 	</div>
