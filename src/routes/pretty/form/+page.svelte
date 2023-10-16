@@ -4,6 +4,7 @@
 	import TurndownService from 'turndown';
 
 	const turndownService = new TurndownService();
+	turndownService.escape = (text: string) => text; // Don't escape markdown
 	const turndown = (html: string) => turndownService.turndown(html);
 
 	export let data;
