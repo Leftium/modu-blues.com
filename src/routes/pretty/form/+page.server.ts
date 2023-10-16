@@ -38,3 +38,21 @@ export const load = async ({ url, fetch }) => {
 
 	return { formJson };
 };
+
+export const actions = {
+	default: async ({ request }) => {
+		const formData = await request.formData();
+
+		const { formAction, ...formEntries } = Object.fromEntries(formData);
+
+		const fetchUrl = new URL(formAction as string);
+		fetchUrl.search = new URLSearchParams(formEntries as Record<string, string>).toString();
+
+		const resp = await fetch(fetchUrl);
+
+		return {
+			status: resp.status,
+			statusText: resp.statusText
+		};
+	}
+};

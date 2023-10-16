@@ -19,6 +19,7 @@
 
 <main class="container">
 	<form method="POST">
+		<input type="hidden" name="formAction" value={data.formJson.formAction} />
 		{#if data.formJson.hasInput}
 			<button>Submit</button>
 		{/if}
