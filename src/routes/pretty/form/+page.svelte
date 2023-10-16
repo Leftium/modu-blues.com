@@ -6,8 +6,27 @@
 	turndownService.escape = (text: string) => text; // Don't escape markdown
 	const turndown = (html: string) => turndownService.turndown(html);
 
-	function parseMarkdown(markdown: string) {
-		return marked.parse(markdown).replace(/(^<p>)|(<\/p>\s*$)/g, '');
+	function parseMarkdown(markdown: string, options = {}) {
+		console.log(`parseMarkdown ${'-'.repeat(100)}`);
+		console.log({ options });
+		console.log('[IN:]');
+		console.log(markdown);
+		console.log('[OUT:]');
+
+		const collapsNewlines = options?.collapseNewlines ?? false;
+
+		if (collapsNewlines) {
+			markdown = markdown.replaceAll('\n\n', '\n').replaceAll('\n', '<br>');
+		}
+
+		let result = marked.parse(markdown);
+
+		if (collapsNewlines) {
+			result = result.replace(/(<p>)|(<\/p>)/g, '');
+		}
+
+		console.log(result);
+		return result;
 	}
 
 	export let data;
@@ -51,7 +70,13 @@
 							<span class="required-mark">*</span>
 						{/if}
 						{@html parseMarkdown(turndown(field.titleHtml))}
-						<div><small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small></div>
+						<div>
+							<small>
+								{@html parseMarkdown(turndown(field.descriptionHtml), {
+									collapseNewlines: true
+								})}
+							</small>
+						</div>
 					</label>
 
 					{#if field.type === 'PARAGRAPH_TEXT'}
@@ -65,7 +90,13 @@
 							<span class="required-mark">*</span>
 						{/if}
 						{@html parseMarkdown(turndown(field.titleHtml))}
-						<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+						<div>
+							<small>
+								{@html parseMarkdown(turndown(field.descriptionHtml), {
+									collapseNewlines: true
+								})}
+							</small>
+						</div>
 					</label>
 
 					<select id="entry.{field.id}" name="entry.{field.id}" required={field.required}>
@@ -81,7 +112,13 @@
 							<span class="required-mark">*</span>
 						{/if}
 						{@html parseMarkdown(turndown(field.titleHtml))}
-						<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+						<div>
+							<small>
+								{@html parseMarkdown(turndown(field.descriptionHtml), {
+									collapseNewlines: true
+								})}
+							</small>
+						</div>
 					</label>
 
 					{#each field.options as option}
@@ -103,7 +140,9 @@
 			</div>
 		{/each}
 
-		<input type="submit" value="Submit" />
+		{#if data.formJson.hasInput}
+			<input type="submit" value="Submit" />
+		{/if}
 	</form>
 
 	<center><a href={data.formJson.formUrl}>View Original Google Form</a></center>
