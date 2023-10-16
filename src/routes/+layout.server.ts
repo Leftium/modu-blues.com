@@ -5,23 +5,31 @@ export const load = async ({ fetch }) => {
 	);
 
 	console.log(resp);
-	console.log('Getting JSON...');
-	const text = await resp.text();
-	const json = JSON.parse(text);
-	// const json = await resp.json();
-	console.log({ json });
+	if (resp.status === 200) {
+		console.log('Getting JSON...');
+		const json = await resp.json();
+		console.log({ json });
 
-	const values = [...json.json.values];
-	values.shift();
+		const values = [...json.json.values];
+		values.shift();
 
-	const routeMap: Record<string, unknown> = {};
-	const routes = values.map(([path, title, formUrl]) => {
-		path = '/' + path;
+		const routeMap: Record<string, unknown> = {};
+		const routes = values.map(([path, title, formUrl]) => {
+			path = '/' + path;
 
-		routeMap[path] = { title, formUrl };
+			routeMap[path] = { title, formUrl };
 
-		return { path, title, formUrl };
-	});
+			return { path, title, formUrl };
+		});
 
-	return { routes, routeMap };
+		return { routes, routeMap };
+	} else {
+		const text = await resp.text();
+		console.log(text);
+
+		return {
+			routes: [],
+			routeMap: {}
+		};
+	}
 };
