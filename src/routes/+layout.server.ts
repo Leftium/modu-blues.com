@@ -1,3 +1,5 @@
+import { error } from '@sveltejs/kit';
+
 export const load = async ({ fetch }) => {
 	console.log('+layout.server load');
 	const resp = await fetch(
@@ -27,9 +29,6 @@ export const load = async ({ fetch }) => {
 		const text = await resp.text();
 		console.log(text);
 
-		return {
-			routes: [],
-			routeMap: {}
-		};
+		throw error(555, text);
 	}
 };
