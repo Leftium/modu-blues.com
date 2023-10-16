@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { marked } from 'marked';
+	import MarkdownIt from 'markdown-it';
+	const md = new MarkdownIt({ html: true });
 
 	import TurndownService from 'turndown';
 	const turndownService = new TurndownService();
 	turndownService.escape = (text: string) => text; // Don't escape markdown
 	const turndown = (html: string) => turndownService.turndown(html);
 
-	function parseMarkdown(markdown: string, options = {}) {
+	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);
 		console.log({ options });
 		console.log('[IN:]');
@@ -19,7 +20,7 @@
 			markdown = markdown.replaceAll('\n\n', '\n').replaceAll('\n', '<br>');
 		}
 
-		let result = marked.parse(markdown);
+		let result = md.render(markdown);
 
 		if (collapsNewlines) {
 			result = result.replace(/(<p>)|(<\/p>)/g, '');
@@ -28,6 +29,9 @@
 		console.log(result);
 		return result;
 	}
+
+	const parseMarkdownCollapseNewlines = (markdown: string) =>
+		parseMarkdown(markdown, { collapseNewlines: true });
 
 	export let data;
 </script>
@@ -48,7 +52,7 @@
 			<div>
 				{#if field.type === 'TITLE_AND_DESCRIPTION'}
 					<center>
-						<h1>{@html parseMarkdown(turndown(field.titleHtml))}</h1>
+						<h1>{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}</h1>
 					</center>
 					{@html parseMarkdown(turndown(field.descriptionHtml))}
 				{:else if field.type === 'IMAGE'}
@@ -69,12 +73,10 @@
 						{#if field.required}
 							<span class="required-mark">*</span>
 						{/if}
-						{@html parseMarkdown(turndown(field.titleHtml))}
+						{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}
 						<div>
 							<small>
-								{@html parseMarkdown(turndown(field.descriptionHtml), {
-									collapseNewlines: true
-								})}
+								{@html parseMarkdownCollapseNewlines(turndown(field.descriptionHtml))}
 							</small>
 						</div>
 					</label>
@@ -89,12 +91,10 @@
 						{#if field.required}
 							<span class="required-mark">*</span>
 						{/if}
-						{@html parseMarkdown(turndown(field.titleHtml))}
+						{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}
 						<div>
 							<small>
-								{@html parseMarkdown(turndown(field.descriptionHtml), {
-									collapseNewlines: true
-								})}
+								{@html parseMarkdownCollapseNewlines(turndown(field.descriptionHtml))}
 							</small>
 						</div>
 					</label>
@@ -111,12 +111,10 @@
 						{#if field.required}
 							<span class="required-mark">*</span>
 						{/if}
-						{@html parseMarkdown(turndown(field.titleHtml))}
+						{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}
 						<div>
 							<small>
-								{@html parseMarkdown(turndown(field.descriptionHtml), {
-									collapseNewlines: true
-								})}
+								{@html parseMarkdownCollapseNewlines(turndown(field.descriptionHtml))}
 							</small>
 						</div>
 					</label>
