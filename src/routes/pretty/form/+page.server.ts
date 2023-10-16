@@ -8,6 +8,7 @@ export const load = async ({ url, fetch }) => {
 
 	// Adjust Google forms JSON:
 	const formJson = {
+		formAction: json.json.formAction,
 		headerImageUrl: json.json.headerImageUrl,
 		title: json.json.title,
 		collectEmails: json.json.collectEmails,

@@ -46,6 +46,7 @@ type EmailOptions = 'NONE' | 'VERIFIED' | 'INPUT';
 
 interface Form {
 	filename: string;
+	formAction: string;
 	headerImageUrl: string | null;
 	title: string;
 	titleHtml?: string;
@@ -106,6 +107,7 @@ function parseGoogleForm(html: string) {
 
 	const form: Form = {
 		filename,
+		formAction: '',
 		headerImageUrl: null,
 		title,
 		titleHtml,
@@ -190,6 +192,8 @@ function parseGoogleForm(html: string) {
 
 	// Inject media source url's:
 	const $ = cheerio.load(html);
+
+	form.formAction = $('form').attr('action') || '';
 
 	const itemDivs = $('div[role="list"] > div[role="listitem"]:not([jsname])');
 
