@@ -2,10 +2,13 @@
 	import { marked } from 'marked';
 
 	import TurndownService from 'turndown';
-
 	const turndownService = new TurndownService();
 	turndownService.escape = (text: string) => text; // Don't escape markdown
 	const turndown = (html: string) => turndownService.turndown(html);
+
+	function parseMarkdown(markdown: string) {
+		return marked.parse(markdown).replace(/(^<p>)|(<\/p>\s*$)/g, '');
+	}
 
 	export let data;
 </script>
@@ -23,9 +26,9 @@
 			<div>
 				{#if field.type === 'TITLE_AND_DESCRIPTION'}
 					<center>
-						<h1>{@html marked.parse(turndown(field.titleHtml))}</h1>
+						<h1>{@html parseMarkdown(turndown(field.titleHtml))}</h1>
 					</center>
-					{@html marked.parse(turndown(field.descriptionHtml))}
+					{@html parseMarkdown(turndown(field.descriptionHtml))}
 				{:else if field.type === 'IMAGE'}
 					<img src={field.imgUrl} alt="alt" />
 				{:else if field.type === 'VIDEO'}
@@ -38,7 +41,11 @@
 						/>
 					</div>
 				{:else if field.type === 'PARAGRAPH_TEXT'}
-					<textarea name="entry.{field.id}" required={field.required} />
+					<label for="entry.{field.id}">
+						{@html parseMarkdown(turndown(field.titleHtml))}
+					</label>
+					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+					<textarea id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
 
 					<pre>{JSON.stringify(field, null, 4)}</pre>
 				{:else}
@@ -67,5 +74,9 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	label {
+		font-weight: bold;
 	}
 </style>
