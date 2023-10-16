@@ -1,9 +1,12 @@
 export const load = async ({ fetch }) => {
+	console.log('+layout.server load');
 	const resp = await fetch(
 		'/api/isr/https://docs.google.com/spreadsheets/d/1uFQ8W20dkHr01KB_zaoUkLU_1YhIAt7DtNOUNiHqKAk/edit'
 	);
 
+	console.log('Getting JSON...');
 	const json = await resp.json();
+	console.log({ json });
 
 	const values = [...json.json.values];
 	values.shift();
