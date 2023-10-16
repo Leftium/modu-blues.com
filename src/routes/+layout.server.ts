@@ -7,8 +7,8 @@ export const load = async ({ fetch, url }) => {
 			'/api/isr/https://docs.google.com/spreadsheets/d/1uFQ8W20dkHr01KB_zaoUkLU_1YhIAt7DtNOUNiHqKAk/edit'
 	);
 
-	console.log(resp);
 	if (resp.status === 200) {
+		console.log(resp);
 		console.log('Getting JSON...');
 		const json = await resp.json();
 		console.log({ json });
@@ -27,9 +27,12 @@ export const load = async ({ fetch, url }) => {
 
 		return { routes, routeMap };
 	} else {
-		const text = await resp.text();
-		console.log(text);
+		if (resp.status === 404) {
+			console.log(resp);
+			const text = await resp.text();
+			console.log(text);
+		}
 
-		throw error(555, text);
+		throw error(555);
 	}
 };
