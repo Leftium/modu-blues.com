@@ -19,10 +19,9 @@
 
 <main class="container">
 	<form method="POST">
+		<input type="hidden" name="formUrl" value={data.formJson.formUrl} />
 		<input type="hidden" name="formAction" value={data.formJson.formAction} />
-		{#if data.formJson.hasInput}
-			<button>Submit</button>
-		{/if}
+
 		{#each data.formJson.fields as field}
 			{#if data.formJson.hasInput && data.formJson.hasRequired && field.inputIndex === 1}
 				<span class="required-mark">* Required 필수항목</span>
@@ -101,7 +100,11 @@
 				{/if}
 			</div>
 		{/each}
+
+		<input type="submit" value="Submit" />
 	</form>
+
+	<center><a href={data.formJson.formUrl}>View Original Google Form</a></center>
 
 	<div hidden>
 		<hr />

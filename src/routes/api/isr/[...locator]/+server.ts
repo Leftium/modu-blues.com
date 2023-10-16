@@ -46,6 +46,7 @@ type EmailOptions = 'NONE' | 'VERIFIED' | 'INPUT';
 
 interface Form {
 	filename: string;
+	formUrl: string;
 	formAction: string;
 	headerImageUrl: string | null;
 	title: string;
@@ -107,6 +108,7 @@ function parseGoogleForm(html: string) {
 
 	const form: Form = {
 		filename,
+		formUrl: '',
 		formAction: '',
 		headerImageUrl: null,
 		title,
@@ -257,6 +259,7 @@ export const GET = async ({ params }) => {
 	// Link to Google form:
 	if (/^https:\/\/(forms.gle\/)|(docs.google.com\/forms\/d\/e)/.test(fetchUrl.href)) {
 		json = parseGoogleForm(text);
+		json.formUrl = fetchUrl.href;
 	}
 
 	if (!json) {
