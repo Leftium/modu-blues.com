@@ -43,9 +43,12 @@
 					</div>
 				{:else if ['PARAGRAPH_TEXT', 'TEXT'].includes(field.type)}
 					<label for="entry.{field.id}">
+						{#if field.required}
+							<span class="required-mark">*</span>
+						{/if}
 						{@html parseMarkdown(turndown(field.titleHtml))}
+						<div><small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small></div>
 					</label>
-					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
 
 					{#if field.type === 'PARAGRAPH_TEXT'}
 						<textarea id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
@@ -54,9 +57,12 @@
 					{/if}
 				{:else if field.type === 'DROPDOWN'}
 					<label for="entry.{field.id}">
+						{#if field.required}
+							<span class="required-mark">*</span>
+						{/if}
 						{@html parseMarkdown(turndown(field.titleHtml))}
+						<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
 					</label>
-					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
 
 					<select id="entry.{field.id}" name="entry.{field.id}" required={field.required}>
 						<option value="">Choose</option>
@@ -66,9 +72,13 @@
 					</select>
 				{:else if ['MULTIPLE_CHOICE', 'CHECKBOXES'].includes(field.type)}
 					<!-- svelte-ignore a11y-label-has-associated-control -->
-					<label for="">{@html parseMarkdown(turndown(field.titleHtml))}</label>
-
-					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+					<label for="">
+						{#if field.required}
+							<span class="required-mark">*</span>
+						{/if}
+						{@html parseMarkdown(turndown(field.titleHtml))}
+						<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+					</label>
 
 					{#each field.options as option}
 						<label
@@ -90,7 +100,7 @@
 		{/each}
 	</form>
 
-	<div>
+	<div hidden>
 		<hr />
 		<pre>{JSON.stringify(data.formJson, null, 4)}</pre>
 	</div>
@@ -111,9 +121,20 @@
 		height: 100%;
 	}
 
+	form small {
+		opacity: 0.5;
+		font-size: 80%;
+	}
+
 	label[for] {
 		font-weight: bold;
+		margin-top: 1.5em;
 	}
+
+	.required-mark {
+		color: red;
+	}
+
 	.hidden {
 		display: none;
 	}
