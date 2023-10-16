@@ -1,4 +1,4 @@
-import { load as prettyFormLoad } from './pretty/form/+page.server';
+import { load as prettyFormLoad } from '../pretty/form/+page.server';
 
 export async function load({ url, fetch, parent }) {
 	const { routeMap } = await parent();
