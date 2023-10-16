@@ -14,8 +14,10 @@ export const load = async ({ url, fetch }) => {
 		fields: json.json.questions
 	};
 
-	// Insert after first image/video:
-	formJson.fields.splice(1, 0, {
+	// Insert initial TITLE_AND_DESCRIPTION after first item if image/video:
+	const insertIndex = ['IMAGE', 'VIDEO'].includes(formJson.fields[0].type) ? 1 : 0;
+
+	formJson.fields.splice(insertIndex, 0, {
 		itemId: null,
 		title: json.json.title,
 		titleHtml: json.json.titleHtml,
