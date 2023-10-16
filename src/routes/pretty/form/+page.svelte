@@ -24,6 +24,9 @@
 			<button>Submit</button>
 		{/if}
 		{#each data.formJson.fields as field}
+			{#if data.formJson.hasInput && data.formJson.hasRequired && field.inputIndex === 1}
+				<span class="required-mark">* Required 필수항목</span>
+			{/if}
 			<div>
 				{#if field.type === 'TITLE_AND_DESCRIPTION'}
 					<center>

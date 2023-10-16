@@ -13,6 +13,7 @@ export const load = async ({ url, fetch }) => {
 		title: json.json.title,
 		collectEmails: json.json.collectEmails,
 		hasInput: false,
+		hasRequired: false,
 		fields: json.json.questions
 	};
 
@@ -30,13 +31,17 @@ export const load = async ({ url, fetch }) => {
 		required: false
 	});
 
-	const types = formJson.fields.map((field: { type: string }) => field.type);
-
 	const INPUT_TYPES = ['TEXT', 'PARAGRAPH_TEXT', 'MULTIPLE_CHOICE', 'DROPDOWN', 'CHECKBOXES'];
 
-	INPUT_TYPES.forEach((inputType) => {
-		if (types.includes(inputType)) {
+	let inputIndex = 1;
+	formJson.fields.forEach((field: { type: string; inputIndex: number; required: any }) => {
+		if (INPUT_TYPES.includes(field.type)) {
 			formJson.hasInput = true;
+			field.inputIndex = inputIndex++;
+
+			if (field.required) {
+				formJson.hasRequired = true;
+			}
 		}
 	});
 
