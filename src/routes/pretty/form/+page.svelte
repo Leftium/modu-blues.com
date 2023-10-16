@@ -33,16 +33,18 @@
 					</center>
 					{@html parseMarkdown(turndown(field.descriptionHtml))}
 				{:else if field.type === 'IMAGE'}
-					<img src={field.imgUrl} alt="alt" />
+					<center><img src={field.imgUrl} alt="alt" /></center>
 				{:else if field.type === 'VIDEO'}
-					<div class="wrap-youtube">
-						<iframe
-							title="YouTube Video"
-							class="youtube"
-							src="https://www.youtube.com/embed/{field.youtubeId}/?rel=0&controls=1&modestbranding=1"
-							allowfullscreen
-						/>
-					</div>
+					<center>
+						<div class="wrap-youtube">
+							<iframe
+								title="YouTube Video"
+								class="youtube"
+								src="https://www.youtube.com/embed/{field.youtubeId}/?rel=0&controls=1&modestbranding=1"
+								allowfullscreen
+							/>
+						</div>
+					</center>
 				{:else if ['PARAGRAPH_TEXT', 'TEXT'].includes(field.type)}
 					<label for="entry.{field.id}">
 						{#if field.required}
