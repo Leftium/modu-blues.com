@@ -21,6 +21,10 @@
 </main>
 
 <style>
+	main {
+		max-width: 800px;
+	}
+
 	a.active {
 		font-weight: bold;
 	}
