@@ -81,7 +81,10 @@
 						>
 					{/each}
 				{:else}
-					TODO: {field.type}
+					<div class="hidden">
+						TODO: {field.type}
+						<pre>{JSON.stringify(field, null, 4)}</pre>
+					</div>
 				{/if}
 			</div>
 		{/each}
@@ -110,5 +113,8 @@
 
 	label[for] {
 		font-weight: bold;
+	}
+	.hidden {
+		display: none;
 	}
 </style>
