@@ -4,8 +4,11 @@ export const load = async ({ fetch }) => {
 		'/api/isr/https://docs.google.com/spreadsheets/d/1uFQ8W20dkHr01KB_zaoUkLU_1YhIAt7DtNOUNiHqKAk/edit'
 	);
 
+	console.log(resp);
 	console.log('Getting JSON...');
-	const json = await resp.json();
+	const text = await resp.text();
+	const json = JSON.parse(text);
+	// const json = await resp.json();
 	console.log({ json });
 
 	const values = [...json.json.values];
