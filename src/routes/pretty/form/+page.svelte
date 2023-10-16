@@ -64,7 +64,7 @@
 							<option value={option}>{option}</option>
 						{/each}
 					</select>
-				{:else if field.type === 'CHECKBOXES'}
+				{:else if ['MULTIPLE_CHOICE', 'CHECKBOXES'].includes(field.type)}
 					<!-- svelte-ignore a11y-label-has-associated-control -->
 					<label for="">{@html parseMarkdown(turndown(field.titleHtml))}</label>
 
@@ -73,15 +73,13 @@
 					{#each field.options as option}
 						<label
 							><input
-								type="checkbox"
+								type={field.type === 'CHECKBOXES' ? 'checkbox' : 'radio'}
 								id="entry.{field.id}"
 								name="entry.{field.id}"
 								value={option}
 							/>{option}</label
 						>
 					{/each}
-
-					<pre>{JSON.stringify(field, null, 4)}</pre>
 				{:else}
 					TODO: {field.type}
 				{/if}
