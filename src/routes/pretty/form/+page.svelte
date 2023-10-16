@@ -34,7 +34,7 @@
 		</div>
 	{/each}
 
-	<div>
+	<div hidden>
 		<hr />
 		<pre>{JSON.stringify(data.formJson, null, 4)}</pre>
 	</div>

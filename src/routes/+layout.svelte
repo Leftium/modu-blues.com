@@ -5,22 +5,33 @@
 	export let data;
 </script>
 
-<center>
-	{#each data.routes as route, index}
-		<a href={route.path} class:active={$page.url.pathname === `${route.path}`}>{route.title}</a>
-		{#if index < data.routes.length - 1}
-			|&nbsp;
-		{/if}
-	{/each}
-</center>
+<nav>
+	<ul>
+		{#each data.routes as route, index}
+			<li>
+				<a href={route.path} class:active={$page.url.pathname === `${route.path}`}
+					>{@html route.title.replace(' # ', '<br />')}</a
+				>
+			</li>
+		{/each}
+	</ul>
+</nav>
 
 <main class="container">
 	<slot />
 
-	<pre>{JSON.stringify(data.routes, null, 4)}</pre>
+	<pre hidden>{JSON.stringify(data.routes, null, 4)}</pre>
 </main>
 
 <style>
+	nav {
+		justify-content: center;
+	}
+
+	nav li {
+		text-align: center;
+	}
+
 	main {
 		max-width: 800px;
 	}
