@@ -43,16 +43,17 @@ export const actions = {
 	default: async ({ request }) => {
 		const formData = await request.formData();
 
-		const { formAction, ...formEntries } = Object.fromEntries(formData);
+		const fetchUrl = formData.get('formAction') as string;
 
-		const fetchUrl = new URL(formAction as string);
-		fetchUrl.search = new URLSearchParams(formEntries as Record<string, string>).toString();
+		const resp = await fetch(fetchUrl, {
+			method: 'POST',
+			body: formData
+		});
 
-		const resp = await fetch(fetchUrl);
-
-		return {
+		const returnValue = {
 			status: resp.status,
 			statusText: resp.statusText
 		};
+		return returnValue;
 	}
 };

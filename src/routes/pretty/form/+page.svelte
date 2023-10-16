@@ -64,6 +64,23 @@
 							<option value={option}>{option}</option>
 						{/each}
 					</select>
+				{:else if field.type === 'CHECKBOXES'}
+					<!-- svelte-ignore a11y-label-has-associated-control -->
+					<label for="">{@html parseMarkdown(turndown(field.titleHtml))}</label>
+
+					<small>{@html parseMarkdown(turndown(field.descriptionHtml))}</small>
+
+					{#each field.options as option}
+						<label
+							><input
+								type="checkbox"
+								id="entry.{field.id}"
+								name="entry.{field.id}"
+								value={option}
+							/>{option}</label
+						>
+					{/each}
+
 					<pre>{JSON.stringify(field, null, 4)}</pre>
 				{:else}
 					TODO: {field.type}
@@ -93,7 +110,7 @@
 		height: 100%;
 	}
 
-	label {
+	label[for] {
 		font-weight: bold;
 	}
 </style>
