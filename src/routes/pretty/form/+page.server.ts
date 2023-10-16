@@ -32,9 +32,13 @@ export const load = async ({ url, fetch }) => {
 
 	const types = formJson.fields.map((field: { type: string }) => field.type);
 
-	if (types.includes('PARAGRAPH_TEXT')) {
-		formJson.hasInput = true;
-	}
+	const INPUT_TYPES = ['TEXT', 'PARAGRAPH_TEXT', 'MULTIPLE_CHOICE', 'DROPDOWN', 'CHECKBOXES'];
+
+	INPUT_TYPES.forEach((inputType) => {
+		if (types.includes(inputType)) {
+			formJson.hasInput = true;
+		}
+	});
 
 	return { formJson };
 };
