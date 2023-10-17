@@ -67,6 +67,7 @@ type QuestionType =
 	| 'DATE'
 	| 'TIME'
 	| 'SCALE'
+	| 'TITLE_AND_DESCRIPTION'
 	| 'GRID'
 	| 'FILE_UPLOAD';
 
@@ -87,6 +88,7 @@ interface Question {
 	imgUrl?: string;
 	mediaMetaData?: unknown;
 	field?: unknown;
+	inputIndex?: number;
 }
 
 function parseGoogleForm(html: string) {
@@ -224,7 +226,7 @@ function parseGoogleForm(html: string) {
 	return form;
 }
 
-function adjustGoogleFormData(json) {
+function adjustGoogleFormData(json: Form) {
 	// Adjust Google forms JSON:
 	const newJson = {
 		formUrl: json.formUrl,
@@ -241,20 +243,21 @@ function adjustGoogleFormData(json) {
 	const insertIndex = ['IMAGE', 'VIDEO'].includes(newJson.fields[0]?.type) ? 1 : 0;
 
 	newJson.fields.splice(insertIndex, 0, {
-		itemId: null,
+		itemId: 0,
 		title: json.title,
 		titleHtml: json.titleHtml,
 		description: json.description,
 		descriptionHtml: json.descriptionHtml,
 		type: 'TITLE_AND_DESCRIPTION',
 		options: [],
-		required: false
+		required: false,
+		id: ''
 	});
 
 	const INPUT_TYPES = ['TEXT', 'PARAGRAPH_TEXT', 'MULTIPLE_CHOICE', 'DROPDOWN', 'CHECKBOXES'];
 
 	let inputIndex = 1;
-	newJson.fields.forEach((field: { type: string; inputIndex: number; required: any }) => {
+	newJson.fields.forEach((field) => {
 		if (INPUT_TYPES.includes(field.type)) {
 			newJson.hasInput = true;
 			field.inputIndex = inputIndex++;
