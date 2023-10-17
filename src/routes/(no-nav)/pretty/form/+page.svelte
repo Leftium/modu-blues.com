@@ -58,6 +58,11 @@
 					</center>
 					{@html parseMarkdown(turndown(field.descriptionHtml))}
 				{:else if field.type === 'IMAGE'}
+					{#if field.titleHtml}
+						<center>
+							<h1>{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}</h1>
+						</center>
+					{/if}
 					<center><img src={field.imgUrl} alt="alt" /></center>
 				{:else if field.type === 'VIDEO'}
 					<center>
