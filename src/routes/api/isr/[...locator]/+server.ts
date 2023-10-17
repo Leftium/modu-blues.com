@@ -224,6 +224,50 @@ function parseGoogleForm(html: string) {
 	return form;
 }
 
+function adjustGoogleFormData(json) {
+	// Adjust Google forms JSON:
+	const newJson = {
+		formUrl: json.formUrl,
+		formAction: json.formAction,
+		headerImageUrl: json.headerImageUrl,
+		title: json.title,
+		collectEmails: json.collectEmails,
+		hasInput: false,
+		hasRequired: false,
+		fields: json.questions
+	};
+
+	// Insert initial TITLE_AND_DESCRIPTION after first item if image/video:
+	const insertIndex = ['IMAGE', 'VIDEO'].includes(newJson.fields[0]?.type) ? 1 : 0;
+
+	newJson.fields.splice(insertIndex, 0, {
+		itemId: null,
+		title: json.title,
+		titleHtml: json.titleHtml,
+		description: json.description,
+		descriptionHtml: json.descriptionHtml,
+		type: 'TITLE_AND_DESCRIPTION',
+		options: [],
+		required: false
+	});
+
+	const INPUT_TYPES = ['TEXT', 'PARAGRAPH_TEXT', 'MULTIPLE_CHOICE', 'DROPDOWN', 'CHECKBOXES'];
+
+	let inputIndex = 1;
+	newJson.fields.forEach((field: { type: string; inputIndex: number; required: any }) => {
+		if (INPUT_TYPES.includes(field.type)) {
+			newJson.hasInput = true;
+			field.inputIndex = inputIndex++;
+
+			if (field.required) {
+				newJson.hasRequired = true;
+			}
+		}
+	});
+
+	return newJson;
+}
+
 export const GET = async ({ params }) => {
 	/***
     params.locator
@@ -260,6 +304,7 @@ export const GET = async ({ params }) => {
 	if (/^https:\/\/(forms.gle\/)|(docs.google.com\/forms\/d\/e)/.test(fetchUrl.href)) {
 		json = parseGoogleForm(text);
 		json.formUrl = fetchUrl.href;
+		json = adjustGoogleFormData(json);
 	}
 
 	if (!json) {
