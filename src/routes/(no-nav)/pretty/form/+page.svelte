@@ -51,7 +51,7 @@
 			{#if data.formJson.hasInput && data.formJson.hasRequired && field.inputIndex === 1}
 				<span class="required-mark">* Required 필수항목</span>
 			{/if}
-			<section>
+			<section class:has-input={!!field.inputIndex}>
 				{#if field.type === 'TITLE_AND_DESCRIPTION'}
 					<center>
 						<h1>{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}</h1>
@@ -171,6 +171,17 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	section {
+		margin-top: 2em;
+		margin-bottom: 2em;
+	}
+
+	section:first-of-type,
+	.has-input {
+		margin-bottom: 0;
+		margin-top: 0;
 	}
 
 	form small {
