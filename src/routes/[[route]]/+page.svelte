@@ -1,5 +1,5 @@
 <script>
-	import Page from '../pretty/form/+page.svelte';
+	import Page from '../(no-nav)/pretty/form/+page.svelte';
 	export let data;
 </script>
 

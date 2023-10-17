@@ -5,17 +5,19 @@
 	export let data;
 </script>
 
-<nav>
-	<ul>
-		{#each data.routes as route, index}
-			<li>
-				<a href={route.path} class:active={$page.url.pathname === `${route.path}`}
-					>{@html route.title.replace(' # ', '<br />')}</a
-				>
-			</li>
-		{/each}
-	</ul>
-</nav>
+{#if !/^\/\(no-nav\)/.test($page.route.id || '')}
+	<nav>
+		<ul>
+			{#each data.routes as route, index}
+				<li>
+					<a href={route.path} class:active={$page.url.pathname === `${route.path}`}
+						>{@html route.title.replace(' # ', '<br />')}</a
+					>
+				</li>
+			{/each}
+		</ul>
+	</nav>
+{/if}
 
 <main class="container">
 	<slot />
