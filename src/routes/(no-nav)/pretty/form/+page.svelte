@@ -51,7 +51,7 @@
 			{#if data.formJson.hasInput && data.formJson.hasRequired && field.inputIndex === 1}
 				<span class="required-mark">* Required 필수항목</span>
 			{/if}
-			<div>
+			<section>
 				{#if field.type === 'TITLE_AND_DESCRIPTION'}
 					<center>
 						<h1>{@html parseMarkdownCollapseNewlines(turndown(field.titleHtml))}</h1>
@@ -142,7 +142,7 @@
 						<pre>{JSON.stringify(field, null, 4)}</pre>
 					</div>
 				{/if}
-			</div>
+			</section>
 		{/each}
 
 		{#if data.formJson.hasInput}
