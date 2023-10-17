@@ -185,4 +185,8 @@
 	.hidden {
 		display: none;
 	}
+
+	:global(a[role='button']) {
+		width: 100%;
+	}
 </style>
