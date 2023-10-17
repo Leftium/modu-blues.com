@@ -1,6 +1,8 @@
 <script lang="ts">
 	import MarkdownIt from 'markdown-it';
-	const md = new MarkdownIt({ html: true });
+	import emoji from 'markdown-it-emoji';
+	const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
+	md.use(emoji);
 
 	import TurndownService from 'turndown';
 	const turndownService = new TurndownService();

@@ -19,7 +19,7 @@ export const load = async ({ url, fetch }) => {
 	};
 
 	// Insert initial TITLE_AND_DESCRIPTION after first item if image/video:
-	const insertIndex = ['IMAGE', 'VIDEO'].includes(formJson.fields[0].type) ? 1 : 0;
+	const insertIndex = ['IMAGE', 'VIDEO'].includes(formJson.fields[0]?.type) ? 1 : 0;
 
 	formJson.fields.splice(insertIndex, 0, {
 		itemId: null,

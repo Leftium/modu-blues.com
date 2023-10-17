@@ -3,7 +3,7 @@
 	const origin = $page.url.origin;
 
 	// Bindings:
-	let url = 'https://forms.gle/ipLF7tw1q9QoWbRx6';
+	let url = 'https://forms.gle/LLXyK6eUaUJi124E6';
 
 	$: urlPretty = `${origin}/pretty/form?u=${url}`;
 	$: markdownPretty = `[link text](/pretty/formUrl?u=${url})`;
