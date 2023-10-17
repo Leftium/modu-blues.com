@@ -145,7 +145,7 @@
 		{/if}
 	</form>
 
-	<center><a href={data.formJson.formUrl}>View Original Google Form</a></center>
+	<center><a href={data.formJson.formUrl}>Go to original Google form</a></center>
 
 	<div hidden>
 		<hr />
