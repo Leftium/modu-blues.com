@@ -22,7 +22,7 @@
 	let group: string[] = [];
 
 	// String value to store in localStorage:
-	$: storeValue = field.type === 'CHECKBOXES' ? group.join(', ') : value;
+	$: storeValue = field.type === 'CHECKBOXES' ? group?.join(', ') : value;
 
 	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
 		/*
@@ -66,7 +66,7 @@
 
 		if (field.type === 'CHECKBOXES') {
 			group =
-				storedValues.byId[field.id].split(', ') || storedValues.byTitle[field.title].split(', ');
+				storedValues.byId[field.id]?.split(', ') || storedValues.byTitle[field.title]?.split(', ');
 		} else {
 			value = storedValues.byId[field.id] || storedValues.byTitle[field.title];
 		}
