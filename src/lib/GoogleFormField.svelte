@@ -11,6 +11,9 @@
 	turndownService.escape = (text: string) => text; // Don't escape markdown
 	const turndown = (html?: string | null) => turndownService.turndown(html || '');
 
+	import store from 'store';
+	import { browser } from '$app/environment';
+
 	// Props:
 	export let field: Question;
 
@@ -22,11 +25,13 @@
 	$: storeValue = field.type === 'CHECKBOXES' ? group.join(', ') : value;
 
 	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
+		/*
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);
 		console.log({ options });
 		console.log('[IN:]');
 		console.log(markdown);
 		console.log('[OUT:]');
+        */
 
 		const collapsNewlines = options?.collapseNewlines ?? false;
 
@@ -40,12 +45,32 @@
 			result = result.replace(/(<p>)|(<\/p>)/g, '');
 		}
 
-		console.log(result);
+		// console.log(result);
 		return result;
 	}
 
 	const parseMarkdownCollapseNewlines = (markdown: string) =>
 		parseMarkdown(markdown, { collapseNewlines: true });
+
+	function handleChange(this: HTMLInputElement) {
+		const storedValues = store.get('storedValues') || { byId: {}, byTitle: {} };
+
+		storedValues.byId[field.id] = storeValue;
+		storedValues.byTitle[field.title] = storeValue;
+
+		store.set('storedValues', storedValues);
+	}
+
+	if (browser) {
+		const storedValues = store.get('storedValues') || { byId: {}, byTitle: {} };
+
+		if (field.type === 'CHECKBOXES') {
+			group =
+				storedValues.byId[field.id].split(', ') || storedValues.byTitle[field.title].split(', ');
+		} else {
+			value = storedValues.byId[field.id] || storedValues.byTitle[field.title];
+		}
+	}
 </script>
 
 <section class:has-input={!!field.inputIndex}>
@@ -91,9 +116,16 @@
 				name="entry.{field.id}"
 				required={field.required}
 				bind:value
+				on:input={handleChange}
 			/>
 		{:else if field.type === 'TEXT'}
-			<input id="entry.{field.id}" name="entry.{field.id}" required={field.required} bind:value />
+			<input
+				id="entry.{field.id}"
+				name="entry.{field.id}"
+				required={field.required}
+				bind:value
+				on:input={handleChange}
+			/>
 		{/if}
 	{:else if field.type === 'DROPDOWN'}
 		<label for="entry.{field.id}">
@@ -108,7 +140,13 @@
 			</div>
 		</label>
 
-		<select id="entry.{field.id}" name="entry.{field.id}" required={field.required} bind:value>
+		<select
+			id="entry.{field.id}"
+			name="entry.{field.id}"
+			required={field.required}
+			bind:value
+			on:change={handleChange}
+		>
 			<option value="">Choose</option>
 			{#each field.options as option}
 				<option value={option}>{option}</option>
@@ -137,6 +175,7 @@
 						name="entry.{field.id}"
 						value={option}
 						bind:group
+						on:change={handleChange}
 					/>
 				{:else}
 					<input
@@ -145,6 +184,7 @@
 						name="entry.{field.id}"
 						value={option}
 						bind:group={value}
+						on:change={handleChange}
 					/>
 				{/if}{option}
 			</label>
@@ -155,7 +195,7 @@
 			<pre>{JSON.stringify(field, null, 4)}</pre>
 		</div>
 	{/if}
-	<pre>{JSON.stringify({ value, group, storeValue }, null, 4)}</pre>
+	<pre hidden>{JSON.stringify({ value, group, storeValue }, null, 4)}</pre>
 </section>
 
 <style>

@@ -20,6 +20,9 @@ devDependencies:
   '@types/markdown-it-emoji':
     specifier: ^2.0.2
     version: 2.0.2
+  '@types/store':
+    specifier: ^2.0.3
+    version: 2.0.3
   '@types/turndown':
     specifier: ^5.0.2
     version: 5.0.2
@@ -56,6 +59,9 @@ devDependencies:
   sass:
     specifier: ^1.69.3
     version: 1.69.3
+  store:
+    specifier: ^2.0.12
+    version: 2.0.12
   svelte:
     specifier: ^4.0.5
     version: 4.2.1
@@ -521,6 +527,10 @@ packages:
 
   /@types/semver@7.5.3:
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
+    dev: true
+
+  /@types/store@2.0.3:
+    resolution: {integrity: sha512-hwArKS+x+2IMmkgOrW/dRaDOiRx6c7O7BBOvK7SYzLT6FJ/i5/wLkgAo0JYrnmZQXGGx/PxjsWW6zA+MVzannQ==}
     dev: true
 
   /@types/turndown@5.0.2:
@@ -1864,6 +1874,10 @@ packages:
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /store@2.0.12:
+    resolution: {integrity: sha512-eO9xlzDpXLiMr9W1nQ3Nfp9EzZieIQc10zPPMP5jsVV7bLOziSFFBP0XoDXACEIFtdI+rIz0NwWVA/QVJ8zJtw==}
     dev: true
 
   /strip-ansi@6.0.1:
