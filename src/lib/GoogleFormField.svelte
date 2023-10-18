@@ -22,7 +22,10 @@
 	// String value to store in localStorage:
 	$: storeValue = field.type === 'CHECKBOXES' ? group?.join(', ') : value;
 
-	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
+	function parseMarkdown(
+		markdown?: string | null,
+		options?: { collapseNewlines: any } | undefined
+	) {
 		/*
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);
 		console.log({ options });
@@ -30,6 +33,8 @@
 		console.log(markdown);
 		console.log('[OUT:]');
         */
+
+		markdown = markdown || '';
 
 		const collapsNewlines = options?.collapseNewlines ?? false;
 
@@ -47,7 +52,7 @@
 		return result;
 	}
 
-	const parseMarkdownCollapseNewlines = (markdown: string) =>
+	const parseMarkdownCollapseNewlines = (markdown?: string | null) =>
 		parseMarkdown(markdown, { collapseNewlines: true });
 
 	function normalizeTitle(title: string) {
