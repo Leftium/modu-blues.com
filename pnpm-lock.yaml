@@ -53,6 +53,12 @@ devDependencies:
   markdown-it-emoji:
     specifier: ^2.0.2
     version: 2.0.2
+  markdown-it-sub:
+    specifier: ^1.0.0
+    version: 1.0.0
+  markdown-it-sup:
+    specifier: ^1.0.0
+    version: 1.0.0
   prettier:
     specifier: ^2.8.0
     version: 2.8.8
@@ -1488,6 +1494,14 @@ packages:
 
   /markdown-it-emoji@2.0.2:
     resolution: {integrity: sha512-zLftSaNrKuYl0kR5zm4gxXjHaOI3FAOEaloKmRA5hijmJZvSjmxcokOLlzycb/HXlUFWzXqpIEoyEMCE4i9MvQ==}
+    dev: true
+
+  /markdown-it-sub@1.0.0:
+    resolution: {integrity: sha512-z2Rm/LzEE1wzwTSDrI+FlPEveAAbgdAdPhdWarq/ZGJrGW/uCQbKAnhoCsE4hAbc3SEym26+W2z/VQB0cQiA9Q==}
+    dev: true
+
+  /markdown-it-sup@1.0.0:
+    resolution: {integrity: sha512-E32m0nV9iyhRR7CrhnzL5msqic7rL1juWre6TQNxsnApg7Uf+F97JOKxUijg5YwXz86lZ0mqfOnutoryyNdntQ==}
     dev: true
 
   /markdown-it@13.0.2:

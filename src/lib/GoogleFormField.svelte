@@ -3,9 +3,11 @@
 	import MarkdownIt from 'markdown-it';
 	import emoji from 'markdown-it-emoji';
 	import easyTables from 'markdown-it-easy-tables';
+	import sup from 'markdown-it-sup';
+	import sub from 'markdown-it-sub';
 
 	const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
-	md.use(emoji).use(easyTables);
+	md.use(emoji).use(easyTables).use(sup).use(sub);
 
 	import store from 'store';
 	import { browser } from '$app/environment';
