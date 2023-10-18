@@ -3,16 +3,18 @@
 	import '../app.scss';
 
 	export let data;
+
+	const menuItems = (routes: any[]) => routes.filter((route) => !!route.title);
 </script>
 
 {#if !/^\/\(no-nav\)/.test($page.route.id || '')}
 	<nav>
 		<ul>
-			{#each data.routes as route, index}
+			{#each menuItems(data.routes) as route}
 				<li>
-					<a href={route.path} class:active={$page.url.pathname === `${route.path}`}
-						>{@html route.title.replace(' # ', '<br />')}</a
-					>
+					<a href={route.path} class:active={$page.url.pathname === `${route.path}`}>
+						{@html route.title.replace(' # ', '<br />')}
+					</a>
 				</li>
 			{/each}
 		</ul>
