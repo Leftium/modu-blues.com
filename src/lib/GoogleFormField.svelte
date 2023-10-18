@@ -18,6 +18,9 @@
 	let value = '';
 	let group: string[] = [];
 
+	// String value to store in localStorage:
+	$: storeValue = field.type === 'CHECKBOXES' ? group.join(', ') : value;
+
 	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);
 		console.log({ options });
@@ -152,7 +155,7 @@
 			<pre>{JSON.stringify(field, null, 4)}</pre>
 		</div>
 	{/if}
-	<pre>{JSON.stringify({ value, group }, null, 4)}</pre>
+	<pre>{JSON.stringify({ value, group, storeValue }, null, 4)}</pre>
 </section>
 
 <style>
