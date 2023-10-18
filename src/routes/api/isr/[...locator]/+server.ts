@@ -4,6 +4,8 @@ import { json as jsonResponse } from '@sveltejs/kit';
 
 import { GCP_API_KEY } from '$env/static/private';
 
+import type { Question, QuestionType } from '$lib';
+
 export const config = {
 	isr: {
 		expiration: 10,
@@ -56,39 +58,6 @@ interface Form {
 	collectEmails: EmailOptions;
 	questions: Question[];
 	error: false;
-}
-
-type QuestionType =
-	| 'TEXT'
-	| 'PARAGRAPH_TEXT'
-	| 'MULTIPLE_CHOICE'
-	| 'CHECKBOXES'
-	| 'DROPDOWN'
-	| 'DATE'
-	| 'TIME'
-	| 'SCALE'
-	| 'TITLE_AND_DESCRIPTION'
-	| 'GRID'
-	| 'FILE_UPLOAD';
-
-interface Question {
-	itemId: number;
-	title: string;
-	titleHtml?: string;
-	description: string | null;
-	descriptionHtml?: string | null;
-	type: QuestionType;
-	options: string[];
-	required: boolean;
-	id: string;
-	imageId?: string;
-	youtubeId?: string;
-	mediaWidth?: number;
-	mediaHeight?: number;
-	imgUrl?: string;
-	mediaMetaData?: unknown;
-	field?: unknown;
-	inputIndex?: number;
 }
 
 function parseGoogleForm(html: string) {

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Question } from '$lib';
 	import MarkdownIt from 'markdown-it';
 	import emoji from 'markdown-it-emoji';
 
@@ -8,10 +9,10 @@
 	import TurndownService from 'turndown';
 	const turndownService = new TurndownService();
 	turndownService.escape = (text: string) => text; // Don't escape markdown
-	const turndown = (html: string) => turndownService.turndown(html);
+	const turndown = (html?: string | null) => turndownService.turndown(html || '');
 
 	// Props:
-	export let field;
+	export let field: Question;
 
 	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);

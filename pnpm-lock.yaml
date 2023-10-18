@@ -17,6 +17,9 @@ devDependencies:
   '@types/markdown-it':
     specifier: ^13.0.2
     version: 13.0.2
+  '@types/markdown-it-emoji':
+    specifier: ^2.0.2
+    version: 2.0.2
   '@types/turndown':
     specifier: ^5.0.2
     version: 5.0.2
@@ -493,6 +496,12 @@ packages:
 
   /@types/linkify-it@3.0.3:
     resolution: {integrity: sha512-pTjcqY9E4nOI55Wgpz7eiI8+LzdYnw3qxXCfHyBDdPbYvbyLgWLJGh8EdPvqawwMK1Uo1794AUkkR38Fr0g+2g==}
+    dev: true
+
+  /@types/markdown-it-emoji@2.0.2:
+    resolution: {integrity: sha512-2ln8Wjbcj/0oRi/6VnuMeWEHHuK8uapFttvcLmDIe1GKCsFBLOLBX+D+xhDa9oWOQV0IpvxwrSfKKssAqqroog==}
+    dependencies:
+      '@types/markdown-it': 13.0.2
     dev: true
 
   /@types/markdown-it@13.0.2:
