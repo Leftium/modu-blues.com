@@ -14,6 +14,10 @@
 	// Props:
 	export let field: Question;
 
+	// Bindings:
+	let value = '';
+	let group: string[] = [];
+
 	function parseMarkdown(markdown: string, options?: { collapseNewlines: any } | undefined) {
 		console.log(`parseMarkdown ${'-'.repeat(100)}`);
 		console.log({ options });
@@ -79,9 +83,14 @@
 		</label>
 
 		{#if field.type === 'PARAGRAPH_TEXT'}
-			<textarea id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
+			<textarea
+				id="entry.{field.id}"
+				name="entry.{field.id}"
+				required={field.required}
+				bind:value
+			/>
 		{:else if field.type === 'TEXT'}
-			<input id="entry.{field.id}" name="entry.{field.id}" required={field.required} />
+			<input id="entry.{field.id}" name="entry.{field.id}" required={field.required} bind:value />
 		{/if}
 	{:else if field.type === 'DROPDOWN'}
 		<label for="entry.{field.id}">
@@ -96,7 +105,7 @@
 			</div>
 		</label>
 
-		<select id="entry.{field.id}" name="entry.{field.id}" required={field.required}>
+		<select id="entry.{field.id}" name="entry.{field.id}" required={field.required} bind:value>
 			<option value="">Choose</option>
 			{#each field.options as option}
 				<option value={option}>{option}</option>
@@ -117,14 +126,25 @@
 		</label>
 
 		{#each field.options as option}
-			<label
-				><input
-					type={field.type === 'CHECKBOXES' ? 'checkbox' : 'radio'}
-					id="entry.{field.id}"
-					name="entry.{field.id}"
-					value={option}
-				/>{option}</label
-			>
+			<label>
+				{#if field.type === 'CHECKBOXES'}
+					<input
+						type="checkbox"
+						id="entry.{field.id}"
+						name="entry.{field.id}"
+						value={option}
+						bind:group
+					/>
+				{:else}
+					<input
+						type="radio"
+						id="entry.{field.id}"
+						name="entry.{field.id}"
+						value={option}
+						bind:group={value}
+					/>
+				{/if}{option}
+			</label>
 		{/each}
 	{:else}
 		<div class="hidden">
@@ -132,6 +152,7 @@
 			<pre>{JSON.stringify(field, null, 4)}</pre>
 		</div>
 	{/if}
+	<pre>{JSON.stringify({ value, group }, null, 4)}</pre>
 </section>
 
 <style>
