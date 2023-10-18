@@ -2,6 +2,8 @@
 	import GoogleFormField from '$lib/GoogleFormField.svelte';
 
 	export let data;
+
+	export let form;
 </script>
 
 <svelte:head>
@@ -9,6 +11,19 @@
 </svelte:head>
 
 <main class="container">
+	{#if form?.success || form?.status}
+		<center>
+			<blockquote>
+				{#if form?.success}
+					<div class="success">Successfully signed up! 신청 성공!</div>
+				{:else if form?.status}
+					<div class="error">Sorry! There was an error:</div>
+					{form.status}: {form.statusText}
+				{/if}
+			</blockquote>
+		</center>
+	{/if}
+
 	<form method="POST">
 		<input type="hidden" name="formUrl" value={data.formJson.formUrl} />
 		<input type="hidden" name="formAction" value={data.formJson.formAction} />
@@ -35,6 +50,16 @@
 </main>
 
 <style>
+	.success {
+		color: green;
+		font-weight: bold;
+	}
+
+	.error {
+		color: red;
+		font-weight: bold;
+	}
+
 	.required-mark {
 		color: red;
 	}

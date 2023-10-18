@@ -1,3 +1,5 @@
+import { fail } from '@sveltejs/kit';
+
 export const load = async ({ url, fetch }) => {
 	const urlTarget = url.searchParams.get('u');
 
@@ -23,10 +25,13 @@ export const actions = {
 			body: formData
 		});
 
-		const returnValue = {
-			status: resp.status,
-			statusText: resp.statusText
-		};
-		return returnValue;
+		if (resp.status !== 200) {
+			return fail(resp.status, {
+				status: resp.status,
+				statusText: resp.statusText
+			});
+		}
+
+		return { success: true };
 	}
 };
