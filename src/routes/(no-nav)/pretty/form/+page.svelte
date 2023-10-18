@@ -12,16 +12,14 @@
 
 <main class="container">
 	{#if form?.success || form?.status}
-		<center>
-			<blockquote>
-				{#if form?.success}
-					<div class="success">Successfully signed up! 신청 성공!</div>
-				{:else if form?.status}
-					<div class="error">Sorry! There was an error:</div>
-					{form.status}: {form.statusText}
-				{/if}
-			</blockquote>
-		</center>
+		<article>
+			{#if form?.success}
+				<div class="success">Successfully signed up! 신청 성공!</div>
+			{:else if form?.status}
+				<div class="error">Sorry! There was an error. 오류:</div>
+				{form.status}: {form.statusText}
+			{/if}
+		</article>
 	{/if}
 
 	<form method="POST">
@@ -37,7 +35,7 @@
 		{/each}
 
 		{#if data.formJson.hasInput}
-			<input type="submit" value="Submit" />
+			<input type="submit" value="Sign up 신청" />
 		{/if}
 	</form>
 
@@ -50,6 +48,11 @@
 </main>
 
 <style>
+	article {
+		margin-top: 1em;
+		text-align: center;
+	}
+
 	.success {
 		color: green;
 		font-weight: bold;
