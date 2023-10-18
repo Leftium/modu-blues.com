@@ -52,11 +52,15 @@
 	const parseMarkdownCollapseNewlines = (markdown: string) =>
 		parseMarkdown(markdown, { collapseNewlines: true });
 
+	function normalizeTitle(title: string) {
+		return title?.trim()?.toLowerCase().replace(/\s+/g, '_');
+	}
+
 	function handleChange(this: HTMLInputElement) {
 		const storedValues = store.get('storedValues') || { byId: {}, byTitle: {} };
 
 		storedValues.byId[field.id] = storeValue;
-		storedValues.byTitle[field.title] = storeValue;
+		storedValues.byTitle[normalizeTitle(field.title)] = storeValue;
 
 		store.set('storedValues', storedValues);
 	}
@@ -66,9 +70,10 @@
 
 		if (field.type === 'CHECKBOXES') {
 			group =
-				storedValues.byId[field.id]?.split(', ') || storedValues.byTitle[field.title]?.split(', ');
+				storedValues.byId[field.id]?.split(', ') ||
+				storedValues.byTitle[normalizeTitle(field.title)]?.split(', ');
 		} else {
-			value = storedValues.byId[field.id] || storedValues.byTitle[field.title];
+			value = storedValues.byId[field.id] || storedValues.byTitle[normalizeTitle(field.title)];
 		}
 	}
 </script>
