@@ -6,7 +6,7 @@
 	import sup from 'markdown-it-sup';
 	import sub from 'markdown-it-sub';
 
-	const md = new MarkdownIt({ html: true, linkify: true, typographer: true });
+	const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
 	md.use(emoji).use(easyTables).use(sup).use(sub);
 
 	import store from 'store';
@@ -84,13 +84,13 @@
 <section class:has-input={!!field.inputIndex}>
 	{#if field.type === 'TITLE_AND_DESCRIPTION'}
 		<center>
-			<h1>{@html parseMarkdownCollapseNewlines(field.title)}</h1>
+			<h1>{@html parseMarkdown(field.title)}</h1>
 		</center>
 		{@html parseMarkdown(field.description)}
 	{:else if field.type === 'IMAGE'}
 		{#if field.title}
 			<center>
-				<h1>{@html parseMarkdownCollapseNewlines(field.title)}</h1>
+				<h1>{@html parseMarkdown(field.title)}</h1>
 			</center>
 		{/if}
 		<center><img src={field.imgUrl} alt="alt" /></center>
@@ -110,10 +110,10 @@
 			{#if field.required}
 				<span class="required-mark">*</span>
 			{/if}
-			{@html parseMarkdownCollapseNewlines(field.title)}
+			{@html parseMarkdown(field.title)}
 			<div>
 				<small>
-					{@html parseMarkdownCollapseNewlines(field.description)}
+					{@html parseMarkdown(field.description)}
 				</small>
 			</div>
 		</label>
@@ -140,10 +140,10 @@
 			{#if field.required}
 				<span class="required-mark">*</span>
 			{/if}
-			{@html parseMarkdownCollapseNewlines(field.title)}
+			{@html parseMarkdown(field.title)}
 			<div>
 				<small>
-					{@html parseMarkdownCollapseNewlines(field.description)}
+					{@html parseMarkdown(field.description)}
 				</small>
 			</div>
 		</label>
@@ -166,10 +166,10 @@
 			{#if field.required}
 				<span class="required-mark">*</span>
 			{/if}
-			{@html parseMarkdownCollapseNewlines(field.title)}
+			{@html parseMarkdown(field.title)}
 			<div>
 				<small>
-					{@html parseMarkdownCollapseNewlines(field.description)}
+					{@html parseMarkdown(field.description)}
 				</small>
 			</div>
 		</label>
