@@ -48,6 +48,8 @@
 			result = result.replace(/(<p>)|(<\/p>)/g, '');
 		}
 
+		result = result.replace(/^(<p>)|(<\/p>\s*$)/g, '');
+
 		// console.log(result);
 		return result;
 	}
