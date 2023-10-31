@@ -323,7 +323,7 @@ export const GET = async ({ params }) => {
 		/^https:\/\/(docs.google.com|sheets.googleapis.com\/v4)\/spreadsheets\/(d\/)?([^/]*)/
 	);
 	if (matches) {
-		//fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/values/A:ZZZ`;
+		// fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/values/A:ZZZ`;
 		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=sheets.data.columnMetadata.hiddenByUser,sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
 	}
 
@@ -364,7 +364,7 @@ export const GET = async ({ params }) => {
 	const response: ApiResponse = {
 		generatedAt: new Date().toISOString(),
 		locator: params.locator,
-		url: fetchUrl.href,
+		url: decodeURIComponent(fetchUrl.href),
 		contentType
 	};
 
