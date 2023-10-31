@@ -240,6 +240,32 @@ function adjustGoogleFormData(json: Form) {
 	return newJson;
 }
 
+function adjustGoogleSheetData(json: { sheets: { data: any[] }[] }) {
+	const data = json?.sheets?.[0]?.data?.[0];
+
+	if (!data) {
+		return json;
+	}
+
+	const columnHiddenByUser = data.columnMetadata.map(
+		(columnMetadatam: { hiddenByUser: boolean | undefined }) => {
+			return !!columnMetadatam.hiddenByUser;
+		}
+	);
+
+	const values = data.rowData.map((rowDatum: { values: any[] }) => {
+		return rowDatum.values
+			.filter((_: unknown, index: number) => {
+				return !columnHiddenByUser[index];
+			})
+			.map((value: { formattedValue: string }) => {
+				return value.formattedValue || '';
+			});
+	});
+
+	return { values };
+}
+
 export const GET = async ({ params }) => {
 	/***
     params.locator
@@ -257,9 +283,12 @@ export const GET = async ({ params }) => {
 	const fetchUrl = new URL(params.locator);
 
 	// Link to Google sheet:
-	const matches = fetchUrl.href.match(/^https:\/\/docs.google.com\/spreadsheets\/d\/([^/]*)/);
+	const matches = fetchUrl.href.match(
+		/^https:\/\/(docs.google.com|sheets.googleapis.com\/v4)\/spreadsheets\/(d\/)?([^/]*)/
+	);
 	if (matches) {
-		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[1]}/values/A:ZZZ1`;
+		//fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/values/A:ZZZ`;
+		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=sheets.data.columnMetadata.hiddenByUser,sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
 	}
 
 	if (/^https:\/\/sheets.googleapis.com/.test(fetchUrl.href)) {
@@ -285,6 +314,11 @@ export const GET = async ({ params }) => {
 		} catch (e) {
 			console.log(e);
 		}
+	}
+
+	// Link to Google sheet:
+	if (matches) {
+		json = adjustGoogleSheetData(json);
 	}
 
 	if (fetchUrl.searchParams.has('key')) {
