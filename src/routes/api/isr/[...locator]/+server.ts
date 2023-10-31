@@ -287,6 +287,10 @@ export const GET = async ({ params }) => {
 		}
 	}
 
+	if (fetchUrl.searchParams.has('key')) {
+		fetchUrl.searchParams.set('key', 'GCP_API_KEY');
+	}
+
 	const response: ApiResponse = {
 		generatedAt: new Date().toISOString(),
 		locator: params.locator,
