@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.formJson.title}</title>
+	<title>{data.formJson?.title}</title>
 </svelte:head>
 
 <main class="container">
@@ -23,23 +23,23 @@
 	{/if}
 
 	<form method="POST">
-		<input type="hidden" name="formUrl" value={data.formJson.formUrl} />
-		<input type="hidden" name="formAction" value={data.formJson.formAction} />
+		<input type="hidden" name="formUrl" value={data.formJson?.formUrl} />
+		<input type="hidden" name="formAction" value={data.formJson?.formAction} />
 
-		{#each data.formJson.fields as field}
-			{#if data.formJson.hasInput && data.formJson.hasRequired && field.inputIndex === 1}
+		{#each data.formJson?.fields || [] as field}
+			{#if data.formJson?.hasInput && data.formJson?.hasRequired && field.inputIndex === 1}
 				<span class="required-mark">* Required 필수항목</span>
 			{/if}
 
 			<GoogleFormField {field} />
 		{/each}
 
-		{#if data.formJson.hasInput}
+		{#if data.formJson?.hasInput}
 			<input type="submit" value="Sign up 신청" />
 		{/if}
 	</form>
 
-	<center><a href={data.formJson.formUrl}>Go to original Google form</a></center>
+	<center><a href={data.formJson?.formUrl}>Go to original Google form</a></center>
 
 	<div hidden>
 		<hr />
