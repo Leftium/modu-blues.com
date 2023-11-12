@@ -280,24 +280,30 @@ function adjustGoogleSheetData(json: { sheets: { data: any[] }[] }) {
 		}
 	);
 
+	const rowHiddenByUser = data.rowMetadata.map(
+		(rowMetadatam: { hiddenByUser: boolean | undefined }) => {
+			return !!rowMetadatam.hiddenByUser;
+		}
+	);
+
 	const timestamps: (Date | null)[][] = [];
 
-	const values = data.rowData.map((rowDatum: { values: any[] }, rowIndex: number) => {
-		timestamps.push([]);
-		return rowDatum.values
-			.filter((_: unknown, columnIndex: number) => {
-				return !columnHiddenByUser[columnIndex];
-			})
-			.map((value) => {
-				let timestamp = null;
-				if (value?.userEnteredFormat?.numberFormat?.type === 'DATE_TIME') {
-					const excelSerialDate = value?.effectiveValue?.numberValue;
-					timestamp = excelDateToJsDate(excelSerialDate);
-				}
-				timestamps[rowIndex].push(timestamp);
-				return value.formattedValue || '';
-			});
-	});
+	const values = data.rowData
+		.filter((_: unknown, rowIndex: number) => !rowHiddenByUser[rowIndex])
+		.map((rowDatum: { values: any[] }, rowIndex: number) => {
+			timestamps.push([]);
+			return rowDatum.values
+				.filter((_: unknown, columnIndex: number) => !columnHiddenByUser[columnIndex])
+				.map((value) => {
+					let timestamp = null;
+					if (value?.userEnteredFormat?.numberFormat?.type === 'DATE_TIME') {
+						const excelSerialDate = value?.effectiveValue?.numberValue;
+						timestamp = excelDateToJsDate(excelSerialDate);
+					}
+					timestamps[rowIndex].push(timestamp);
+					return value.formattedValue || '';
+				});
+		});
 
 	return { values, timestamps };
 }
@@ -324,7 +330,7 @@ export const GET = async ({ params }) => {
 	);
 	if (matches) {
 		// fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/values/A:ZZZ`;
-		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=sheets.data.columnMetadata.hiddenByUser,sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
+		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=sheets.data(columnMetadata.hiddenByUser,rowMetadata.hiddenByUser),sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
 	}
 
 	if (/^https:\/\/sheets.googleapis.com/.test(fetchUrl.href)) {
