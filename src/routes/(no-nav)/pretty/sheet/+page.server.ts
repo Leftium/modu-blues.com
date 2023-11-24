@@ -4,7 +4,11 @@ export const load = async ({ url, fetch }) => {
 
 	const fetchUrl = `/api/isr/${urlTarget}`;
 
-	const resp = await fetch(fetchUrl);
+	let resp = await fetch(fetchUrl);
+	if (resp.status === 302) {
+		resp = await fetch(resp.headers.get('location') || '');
+	}
+
 	const json = await resp.json();
 
 	// Unwrap from inside meta data.

@@ -8,7 +8,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		//console.log(event);
 	}
 
-	if (false && u && event.url.pathname === '/') {
+	if (u && event.url.pathname === '/') {
 		const uType = /^https:\/\/(forms.gle\/)|(docs.google.com\/forms\/d\/e)/.test(u)
 			? 'form'
 			: 'sheet';

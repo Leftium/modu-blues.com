@@ -1,6 +1,6 @@
 import * as cheerio from 'cheerio';
 
-import { json as jsonResponse } from '@sveltejs/kit';
+import { json as jsonResponse, redirect } from '@sveltejs/kit';
 
 import { GCP_API_KEY } from '$env/static/private';
 
@@ -308,7 +308,7 @@ function adjustGoogleSheetData(json: { sheets: { data: any[] }[] }) {
 	return { values, timestamps };
 }
 
-export const GET = async ({ params }) => {
+export const GET = async ({ params, url }) => {
 	/***
     params.locator
 
@@ -340,6 +340,10 @@ export const GET = async ({ params }) => {
 	const resp = await fetch(fetchUrl);
 	const contentType = resp.headers.get('content-type');
 	const text = await resp.text();
+
+	if (resp.url != fetchUrl.href) {
+		throw redirect(302, `${url.origin}/api/isr/${resp.url}`);
+	}
 
 	let json;
 
