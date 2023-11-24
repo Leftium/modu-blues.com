@@ -8,10 +8,10 @@ export const load = async ({ fetch, url }) => {
 	);
 
 	if (resp.status === 200) {
-		console.log(resp);
+		// console.log(resp);
 		console.log('Getting JSON...');
 		const json = await resp.json();
-		console.log({ json });
+		// console.log({ json });
 
 		const values = [...json.json.values];
 		values.shift();
@@ -28,9 +28,9 @@ export const load = async ({ fetch, url }) => {
 		return { routes, routeMap };
 	} else {
 		if (resp.status === 404) {
-			console.log(resp);
+			// console.log(resp);
 			const text = await resp.text();
-			console.log(text);
+			/// console.log(text);
 		}
 
 		throw error(555);

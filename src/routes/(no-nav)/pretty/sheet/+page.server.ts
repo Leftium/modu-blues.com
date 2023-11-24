@@ -1,4 +1,5 @@
 export const load = async ({ url, fetch }) => {
+	console.log('LOAD', url.href);
 	const urlTarget = url.searchParams.get('u');
 
 	const fetchUrl = `/api/isr/${urlTarget}`;

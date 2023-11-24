@@ -1,9 +1,14 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	console.log('-'.repeat(120), '\nHANDLE', event.url.href);
 	const u = event.url.searchParams.get('u');
 
-	if (u && event.url.pathname === '/') {
+	if (event.url.href.includes('undefined')) {
+		//console.log(event);
+	}
+
+	if (false && u && event.url.pathname === '/') {
 		const uType = /^https:\/\/(forms.gle\/)|(docs.google.com\/forms\/d\/e)/.test(u)
 			? 'form'
 			: 'sheet';
