@@ -2,6 +2,10 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>{data.counts.total}명 신청 🕺{data.counts.leads} 💃{data.counts.follows}</title>
+</svelte:head>
+
 <main class="container">
 	<h1>
 		<center>{data.counts.total}명 신청 🕺{data.counts.leads} 💃{data.counts.follows}</center>
