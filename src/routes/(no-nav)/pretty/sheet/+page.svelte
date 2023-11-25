@@ -21,7 +21,7 @@
 				<span class="summary-wrap">{@html row.summary}</span>
 			</summary>
 			{#each row.cells as cell, index}
-				<b>{data.columnNames[index]}</b>
+				<span class="label">{data.columnNames[index]}</span>
 				<p>{cell}</p>
 			{/each}
 		</details>
@@ -58,6 +58,10 @@
 		display: inline-block;
 		width: 2rem;
 		text-align: right;
+		opacity: 66%;
+	}
+
+	.label {
 		opacity: 66%;
 	}
 
