@@ -1,15 +1,18 @@
 <script lang="ts">
 	export let data;
+
+	const countText =
+		data.counts.leads || data.counts.follows
+			? `${data.counts.total}명 신청 🕺${data.counts.leads} 💃${data.counts.follows}`
+			: `${data.counts.total} Rows`;
 </script>
 
 <svelte:head>
-	<title>{data.counts.total}명 신청 🕺{data.counts.leads} 💃{data.counts.follows}</title>
+	<title>{countText}</title>
 </svelte:head>
 
 <main class="container">
-	<h1>
-		<center>{data.counts.total}명 신청 🕺{data.counts.leads} 💃{data.counts.follows}</center>
-	</h1>
+	<h1><center>{countText}</center></h1>
 
 	{#each data.rows as row}
 		<hr />

@@ -14,27 +14,41 @@ export const load = async ({ url, fetch }) => {
 	// Unwrap from inside meta data.
 	const sheetJson = json.json;
 
-	const columnNames = sheetJson.values.shift();
+	let columnNames = sheetJson.values.shift();
 
 	const counts = {
-		total: sheetJson.values.length,
+		total: 0,
 		leads: 0,
 		follows: 0
 	};
 
 	const rows: { summary: string; cells: string[] }[] = [];
-	sheetJson.values.forEach((cells: string[], rowIndex: number) => {
+
+	sheetJson.values.forEach((cells: string[]) => {
+		if (cells.join('') == '') {
+			// Empty row.
+			return;
+		}
+
+		if (cells.join('').includes(columnNames.join(''))) {
+			// Duplicate title row.
+			columnNames = cells;
+			return;
+		}
+
 		let summary = '';
 		let cheer = '';
 		let role = '';
 		let name = '';
 		let paid = '';
 
+		counts.total++;
+
 		cells.forEach((cell, index) => {
 			const columnName = columnNames[index];
 
-			if (/^역할/.test(columnName)) {
-				if (cell === '리더') {
+			if (/^역할/.test(columnName) || /^리드\/팔로우/.test(columnName)) {
+				if (['리더', '리드'].includes(cell)) {
 					role = '🕺';
 					counts.leads++;
 				} else {
@@ -50,7 +64,11 @@ export const load = async ({ url, fetch }) => {
 			}
 		});
 
-		summary = `<div class="cheer">${cheer}</div>${rowIndex + 1}. ${role}<b>${name}</b>`;
+		if (name) {
+			summary = `<div class="cheer">${cheer}</div>${counts.total}. ${role}<b>${name}</b>`;
+		} else {
+			summary = `${counts.total}. ${cells.join(', ')}`;
+		}
 
 		rows.push({
 			summary,
