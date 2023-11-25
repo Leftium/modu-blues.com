@@ -65,9 +65,9 @@ export const load = async ({ url, fetch }) => {
 		});
 
 		if (name) {
-			summary = `<div class="cheer">${cheer}</div>${counts.total}. ${role}<b>${name}</b>`;
+			summary = `<div class="cheer">${cheer}</div><span class="number">${counts.total}.</span> ${role}<b>${name}</b>`;
 		} else {
-			summary = `${counts.total}. ${cells.join(', ')}`;
+			summary = `<span class="number">${counts.total}.</span> ${cells.join(', ')}`;
 		}
 
 		rows.push({

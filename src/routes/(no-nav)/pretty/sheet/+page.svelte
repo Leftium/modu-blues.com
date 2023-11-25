@@ -51,6 +51,12 @@
 		opacity: 66%;
 	}
 
+	summary :global(.number) {
+		display: inline-block;
+		width: 2rem;
+		text-align: right;
+	}
+
 	details,
 	hr {
 		margin: 0.2rem 0;
