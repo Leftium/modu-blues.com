@@ -38,7 +38,7 @@
 
 	<hr />
 
-	<h4><a href={urlPrettyForm}>Pretty Version</a></h4>
+	<h4><a href={urlAutodetect}>Pretty Version</a></h4>
 	<h5>link</h5>
 	<input bind:value={urlAutodetect} on:click={handleClick} readonly />
 	<h5>markdown</h5>
