@@ -5,6 +5,9 @@
 	// Bindings:
 	let url = 'https://forms.gle/LLXyK6eUaUJi124E6';
 
+	$: urlAutodetect = `${origin}?u=${url}`;
+	$: markdownAutodetect = `[link text](/?u=${url})`;
+
 	$: urlPrettyForm = `${origin}/pretty/form?u=${url}`;
 	$: markdownPrettyForm = `[link text](/pretty/form?u=${url})`;
 
@@ -35,23 +38,30 @@
 
 	<hr />
 
-	<h4><a href={urlPrettyForm}>Form Pretty Version</a></h4>
+	<h4><a href={urlPrettyForm}>Pretty Version</a></h4>
 	<h5>link</h5>
-	<input bind:value={urlPrettyForm} on:click={handleClick} readonly />
+	<input bind:value={urlAutodetect} on:click={handleClick} readonly />
 	<h5>markdown</h5>
-	<input bind:value={markdownPrettyForm} on:click={handleClick} readonly />
+	<input bind:value={markdownAutodetect} on:click={handleClick} readonly />
 
-	<h4><a href={urlPrettySheet}>Sheet Pretty Version</a></h4>
-	<h5>link</h5>
-	<input bind:value={urlPrettySheet} on:click={handleClick} readonly />
-	<h5>markdown</h5>
-	<input bind:value={markdownPrettySheet} on:click={handleClick} readonly />
-
-	<h4><a href={urlJson}>JSON Version</a></h4>
-	<h5>link</h5>
-	<input bind:value={urlJson} on:click={handleClick} readonly />
-	<h5>markdown</h5>
-	<input bind:value={markdownJson} on:click={handleClick} readonly />
+	<details>
+		<summary role="button">More...</summary>
+		<h4><a href={urlPrettyForm}>Form Pretty Version</a></h4>
+		<h5>link</h5>
+		<input bind:value={urlPrettyForm} on:click={handleClick} readonly />
+		<h5>markdown</h5>
+		<input bind:value={markdownPrettyForm} on:click={handleClick} readonly />
+		<h4><a href={urlPrettySheet}>Sheet Pretty Version</a></h4>
+		<h5>link</h5>
+		<input bind:value={urlPrettySheet} on:click={handleClick} readonly />
+		<h5>markdown</h5>
+		<input bind:value={markdownPrettySheet} on:click={handleClick} readonly />
+		<h4><a href={urlJson}>JSON Version</a></h4>
+		<h5>link</h5>
+		<input bind:value={urlJson} on:click={handleClick} readonly />
+		<h5>markdown</h5>
+		<input bind:value={markdownJson} on:click={handleClick} readonly />
+	</details>
 </main>
 
 <style>
