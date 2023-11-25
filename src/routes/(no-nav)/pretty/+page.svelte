@@ -5,8 +5,11 @@
 	// Bindings:
 	let url = 'https://forms.gle/LLXyK6eUaUJi124E6';
 
-	$: urlPretty = `${origin}/pretty/form?u=${url}`;
-	$: markdownPretty = `[link text](/pretty/formUrl?u=${url})`;
+	$: urlPrettyForm = `${origin}/pretty/form?u=${url}`;
+	$: markdownPrettyForm = `[link text](/pretty/form?u=${url})`;
+
+	$: urlPrettySheet = `${origin}/pretty/sheet?u=${url}`;
+	$: markdownPrettySheet = `[link text](/pretty/sheet?u=${url})`;
 
 	$: urlJson = `${origin}/api/isr/${url}`;
 	$: markdownJson = `[link text](/api/isr/${url})`;
@@ -16,8 +19,11 @@
 	}
 
 	function handleClick(this: HTMLInputElement) {
-		navigator.clipboard.writeText(this.value);
-		this.select();
+		try {
+			navigator.clipboard.writeText(this.value);
+		} finally {
+			this.select();
+		}
 	}
 </script>
 
@@ -29,11 +35,17 @@
 
 	<hr />
 
-	<h4><a href={urlPretty}>Pretty Version</a></h4>
+	<h4><a href={urlPrettyForm}>Form Pretty Version</a></h4>
 	<h5>link</h5>
-	<input bind:value={urlPretty} on:click={handleClick} readonly />
+	<input bind:value={urlPrettyForm} on:click={handleClick} readonly />
 	<h5>markdown</h5>
-	<input bind:value={markdownPretty} on:click={handleClick} readonly />
+	<input bind:value={markdownPrettyForm} on:click={handleClick} readonly />
+
+	<h4><a href={urlPrettySheet}>Sheet Pretty Version</a></h4>
+	<h5>link</h5>
+	<input bind:value={urlPrettySheet} on:click={handleClick} readonly />
+	<h5>markdown</h5>
+	<input bind:value={markdownPrettySheet} on:click={handleClick} readonly />
 
 	<h4><a href={urlJson}>JSON Version</a></h4>
 	<h5>link</h5>
