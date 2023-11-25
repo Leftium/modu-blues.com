@@ -18,7 +18,7 @@
 		<hr />
 		<details>
 			<summary>
-				{@html row.summary}
+				<span class="summary-wrap">{@html row.summary}</span>
 			</summary>
 			{#each row.cells as cell, index}
 				<b>{data.columnNames[index]}</b>
@@ -39,14 +39,17 @@
 	main {
 		padding: 0.2rem 0;
 	}
-	summary {
-		line-height: 1.6rem;
+
+	.summary-wrap {
+		line-height: 1.8rem;
+		display: inline-block;
+		width: 93%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 
 	summary :global(.cheer) {
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		overflow: hidden;
 		font-size: medium;
 		opacity: 66%;
 	}
@@ -55,6 +58,7 @@
 		display: inline-block;
 		width: 2rem;
 		text-align: right;
+		opacity: 66%;
 	}
 
 	details,
