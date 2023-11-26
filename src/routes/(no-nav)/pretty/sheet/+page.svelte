@@ -5,6 +5,16 @@
 		data.counts.leads || data.counts.follows
 			? `${data.counts.total}명 신청 🕺${data.counts.leads} 💃${data.counts.follows}`
 			: `${data.counts.total} Rows`;
+
+	function toggleDetails(this: HTMLElement) {
+		const detailsElement = this.classList.contains('details') ? this : this.nextElementSibling;
+
+		if (detailsElement?.classList.contains('folded')) {
+			detailsElement?.classList.remove('folded');
+		} else {
+			detailsElement?.classList.add('folded');
+		}
+	}
 </script>
 
 <svelte:head>
@@ -14,18 +24,18 @@
 <main class="container">
 	<h1><center>{countText}</center></h1>
 
-	{#each data.rows as row}
-		<hr />
-		<details>
-			<summary>
-				<span class="summary-wrap">{@html row.summary}</span>
-			</summary>
-			{#each row.cells as cell, index}
-				<span class="label">{data.columnNames[index]}</span>
-				<p>{cell}</p>
-			{/each}
-		</details>
-	{/each}
+	<div class="container" class:grid={data.isGridLayout} class:no-grid={!data.isGridLayout}>
+		{#each data.rows as row}
+			<hr class="row" />
+			<div class="row summary" on:click={toggleDetails} role="none">{@html row.summary}</div>
+			<div class="row details folded" on:click={toggleDetails} role="none">
+				{#each row.cells as cell, index}
+					<div class="label">{data.columnNames[index] || ''}</div>
+					<div class="cell">{cell || ''}</div>
+				{/each}
+			</div>
+		{/each}
+	</div>
 
 	<div hidden>
 		<pre>{JSON.stringify(data.counts, null, 4)}</pre>
@@ -40,24 +50,59 @@
 		padding: 0.2rem 0;
 	}
 
-	.summary-wrap {
-		line-height: 1.8rem;
-		display: inline-block;
-		width: 93%;
-		overflow: hidden;
+	.container.grid {
+		overflow-x: hidden;
+
+		display: grid;
+		grid-template-columns: 2.5rem repeat(7, minmax(6rem, auto));
+
+		gap: 0.1rem;
+	}
+
+	.row {
+		display: grid;
+		grid-column: 1 / -1;
+
+		grid-template-columns: subgrid;
+	}
+
+	.summary {
+		font-weight: 500;
+	}
+
+	.grid .row.details {
+		grid-column: 2 / -1;
+		grid-template-columns: 1fr;
+	}
+
+	.no-grid .row {
+		margin-bottom: 0.4rem;
+	}
+
+	.no-grid .row.details {
+		padding-left: 3rem;
+	}
+
+	.folded {
+		display: none;
+	}
+
+	.row :global(div) {
+		overflow-x: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
-	summary :global(.cheer) {
-		font-size: medium;
-		opacity: 66%;
-	}
-
-	summary :global(.number) {
+	:global(.number) {
 		display: inline-block;
 		width: 2rem;
 		text-align: right;
+		opacity: 66%;
+	}
+
+	:global(.cheer) {
+		padding-left: 2.5rem;
+		font-size: medium;
 		opacity: 66%;
 	}
 
@@ -65,7 +110,10 @@
 		opacity: 66%;
 	}
 
-	details,
+	.cell {
+		padding-left: 1rem;
+	}
+
 	hr {
 		margin: 0.2rem 0;
 	}

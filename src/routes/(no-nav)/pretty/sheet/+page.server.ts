@@ -24,6 +24,8 @@ export const load = async ({ url, fetch }) => {
 
 	const rows: { summary: string; cells: string[] }[] = [];
 
+	let isGridLayout = false;
+
 	sheetJson.values.forEach((cells: string[]) => {
 		if (cells.join('') == '') {
 			// Empty row.
@@ -64,10 +66,16 @@ export const load = async ({ url, fetch }) => {
 			}
 		});
 
-		if (name) {
-			summary = `<div class="cheer">${cheer}</div><span class="number">${counts.total}.</span> ${role}<b>${name}</b>`;
+		isGridLayout = !name;
+
+		if (isGridLayout) {
+			summary = `<div class="number use-grid">${counts.total}.</div>${cells
+				.map((cell: string) => {
+					return `<div>${cell}</div>`;
+				})
+				.join('')}`;
 		} else {
-			summary = `<span class="number">${counts.total}.</span> ${cells.join(', ')}`;
+			summary = `<div><span class="number">${counts.total}.</span> ${role}<b>${name}</b><div class="cheer">${cheer}</div></div>`;
 		}
 
 		rows.push({
@@ -76,5 +84,5 @@ export const load = async ({ url, fetch }) => {
 		});
 	});
 
-	return { counts, columnNames, rows, sheetJson };
+	return { isGridLayout, counts, columnNames, rows, sheetJson };
 };
