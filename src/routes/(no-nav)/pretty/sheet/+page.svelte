@@ -18,11 +18,15 @@
 </script>
 
 <svelte:head>
-	<title>{countText}</title>
+	<title>{countText} | {data.sheetJson.title}</title>
 </svelte:head>
 
 <main class="container">
-	<h1><center>{countText}</center></h1>
+
+    <center>
+        <h1>{data.sheetJson.title}</h1>
+            <h2>{countText}</h2>
+    </center>
 
 	<div class="container" class:grid={data.isGridLayout} class:no-grid={!data.isGridLayout}>
 		{#each data.rows as row}

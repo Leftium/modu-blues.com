@@ -267,7 +267,8 @@ function excelDateToJsDate(serial: number) {
 	);
 }
 
-function adjustGoogleSheetData(json: { sheets: { data: any[] }[] }) {
+function adjustGoogleSheetData(json: { properties: { title: string }; sheets: { data: any[] }[] }) {
+	const title = json?.properties?.title || '';
 	const data = json?.sheets?.[0]?.data?.[0];
 
 	if (!data) {
@@ -305,7 +306,7 @@ function adjustGoogleSheetData(json: { sheets: { data: any[] }[] }) {
 				});
 		});
 
-	return { values, timestamps };
+	return { title, values, timestamps };
 }
 
 export const GET = async ({ params, url }) => {
@@ -330,7 +331,7 @@ export const GET = async ({ params, url }) => {
 	);
 	if (matches) {
 		// fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/values/A:ZZZ`;
-		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=sheets.data(columnMetadata.hiddenByUser,rowMetadata.hiddenByUser),sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
+		fetchUrl.href = `https://sheets.googleapis.com/v4/spreadsheets/${matches[3]}/?ranges=A:ZZZ&fields=properties(title),sheets.properties(title),sheets.data(columnMetadata.hiddenByUser,rowMetadata.hiddenByUser),sheets.data.rowData.values(formattedValue,effectiveValue.numberValue,userEnteredFormat.numberFormat)`;
 	}
 
 	if (/^https:\/\/sheets.googleapis.com/.test(fetchUrl.href)) {
