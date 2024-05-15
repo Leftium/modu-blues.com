@@ -32,7 +32,7 @@ export const load = async ({ url, fetch }) => {
 			return;
 		}
 
-		if (cells.join('').includes(columnNames.join(''))) {
+		if (cells.join('').includes(columnNames.join('')) || cells.join('').includes('입금확인')) {
 			// Duplicate title row.
 			columnNames = cells;
 			return;
