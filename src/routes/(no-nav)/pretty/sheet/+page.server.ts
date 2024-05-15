@@ -75,7 +75,9 @@ export const load = async ({ url, fetch }) => {
 				})
 				.join('')}`;
 		} else {
-			summary = `<div><span class="number">${counts.total}.</span> ${role}<b>${name}</b><div class="cheer">${cheer}</div></div>`;
+			summary = `<div><span class="number">${counts.total}.</span> ${role}<span style="opacity: ${
+				paid ? 1 : 0.35
+			};">🪙</span><b>${name}</b><div class="cheer">${cheer}</div></div>`;
 		}
 
 		rows.push({
