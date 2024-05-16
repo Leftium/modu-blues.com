@@ -41,7 +41,7 @@
 		{/each}
 	</div>
 
-    <center><a rel="external" href="{data.locator}">Original Google Sheet</a></center>
+    <center><a href={data.locator}>Original Google Sheet</a></center>
 
 	<div hidden>
 		<pre>{JSON.stringify(data.counts, null, 4)}</pre>
