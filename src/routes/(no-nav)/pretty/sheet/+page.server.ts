@@ -86,5 +86,5 @@ export const load = async ({ url, fetch }) => {
 		});
 	});
 
-	return { isGridLayout, counts, columnNames, rows, sheetJson, locator: json.locator };
+	return { isGridLayout, counts, columnNames, rows, sheetJson, urlTarget };
 };
