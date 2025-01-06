@@ -32,7 +32,7 @@ export const load = async ({ url, fetch }) => {
 			return;
 		}
 
-		if (cells.join('').includes(columnNames.join('')) || cells.join('').includes('입금확인')) {
+		if (cells.join('').includes(columnNames.join('')) || cells.join('').includes('입금여부')) {
 			// Duplicate title row.
 			columnNames = cells;
 			return;
@@ -50,14 +50,15 @@ export const load = async ({ url, fetch }) => {
 			const columnName = columnNames[index];
 
 			if (/^역할/.test(columnName) || /^리드\/팔로우/.test(columnName)) {
-				if (['리더', '리드'].includes(cell)) {
-					role = '🕺';
+				if (cell.match(/리더|리드|lead/i)) {
+					role += '🕺';
 					counts.leads++;
-				} else {
-					counts.follows++;
-					role = '💃';
 				}
-			} else if (/^입금확인/.test(columnName)) {
+				if (cell.match(/팔뤄|follow/i)) {
+					counts.follows++;
+					role += '💃';
+				}
+			} else if (/^입금여부/.test(columnName)) {
 				paid = cell ? '💰' : '';
 			} else if (/^응원/.test(columnName)) {
 				cheer = cell || '';
