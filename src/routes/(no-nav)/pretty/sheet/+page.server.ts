@@ -43,6 +43,7 @@ export const load = async ({ url, fetch }) => {
 		let role = '';
 		let name = '';
 		let paid = '';
+		let foodTour = '';
 
 		counts.total++;
 
@@ -64,6 +65,8 @@ export const load = async ({ url, fetch }) => {
 				cheer = cell || '';
 			} else if (/^닉네임/.test(columnName)) {
 				name = cell || '';
+			} else if (/맛집/.test(columnName)) {
+				foodTour = cell.match(/y|네|얍/i) ? '😋' : '';
 			}
 		});
 
@@ -76,9 +79,7 @@ export const load = async ({ url, fetch }) => {
 				})
 				.join('')}`;
 		} else {
-			summary = `<div><span class="number">${counts.total}.</span> ${role}<span style="opacity: ${
-				paid ? 1 : 0.35
-			};">💰</span><b>${name}</b><div class="cheer">${cheer}</div></div>`;
+			summary = `<div><span class="number">${counts.total}.</span> ${role}${foodTour}${paid}<b>${name}</b><div class="cheer">${cheer}</div></div>`;
 		}
 
 		rows.push({
