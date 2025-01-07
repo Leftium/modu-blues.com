@@ -32,7 +32,11 @@ export const load = async ({ url, fetch }) => {
 			return;
 		}
 
-		if (cells.join('').includes(columnNames.join('')) || cells.join('').includes('입금여부')) {
+		if (
+			cells.join('').includes(columnNames.join('')) ||
+			cells.join('').includes('입금여부') ||
+			cells.join('').includes('입금확인')
+		) {
 			// Duplicate title row.
 			columnNames = cells;
 			return;
@@ -55,11 +59,11 @@ export const load = async ({ url, fetch }) => {
 					role += '🕺';
 					counts.leads++;
 				}
-				if (cell.match(/팔뤄|follow/i)) {
+				if (cell.match(/팔|follow/i)) {
 					counts.follows++;
 					role += '💃';
 				}
-			} else if (/^입금여부/.test(columnName)) {
+			} else if (/^입금(여부|확인)/.test(columnName)) {
 				paid = cell ? '💰' : '';
 			} else if (/말씀/.test(columnName)) {
 				cheer = cell || '';
