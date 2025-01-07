@@ -178,7 +178,7 @@
 
 		{#each field.options as option}
 			<label>
-				{#if field.type === 'CHECKBOXES'}
+				{#if field.type === 'CHECKBOXES' || field.options.length === 1}
 					<input
 						type="checkbox"
 						id="entry.{field.id}"
