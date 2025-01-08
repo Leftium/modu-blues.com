@@ -73,7 +73,7 @@
 	}
 
 	.summary {
-        font-family: Lato;
+        font-family: Lato, sans-serif;
 		font-weight: 500;
 	}
 
