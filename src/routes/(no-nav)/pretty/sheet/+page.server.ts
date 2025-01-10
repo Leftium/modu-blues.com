@@ -92,5 +92,9 @@ export const load = async ({ url, fetch }) => {
 		});
 	});
 
+	if (!isGridLayout) {
+		rows.reverse();
+	}
+
 	return { isGridLayout, counts, columnNames, rows, sheetJson, urlTarget };
 };
