@@ -72,7 +72,7 @@ export const load = async ({ url, fetch }) => {
 			} else if (/맛집/.test(columnName)) {
 				foodTour = cell.match(/y|네|얍/i) ? '😋' : '';
 			} else if (/연락|contact/i.test(columnName)) {
-				cells[index] = '****';
+				cells[index] = cells[index].replaceAll(/[0-9]/g, '*');
 			}
 		});
 
