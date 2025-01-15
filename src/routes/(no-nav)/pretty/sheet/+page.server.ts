@@ -65,6 +65,9 @@ export const load = async ({ url, fetch }) => {
 				}
 			} else if (/^입금(여부|확인)/.test(columnName)) {
 				paid = cell ? '💰' : '';
+				if (/s/i.test(cell)) {
+					paid += '🐣';
+				}
 			} else if (/말씀/.test(columnName)) {
 				cheer = cell || '';
 			} else if (/^닉네임/.test(columnName)) {
