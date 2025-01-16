@@ -48,6 +48,7 @@ export const load = async ({ url, fetch }) => {
 		let name = '';
 		let paid = '';
 		let foodTour = '';
+		let superEarlyBird = '';
 
 		counts.total++;
 
@@ -66,7 +67,7 @@ export const load = async ({ url, fetch }) => {
 			} else if (/^입금(여부|확인)/.test(columnName)) {
 				paid = cell ? '💰' : '';
 				if (/s/i.test(cell)) {
-					paid += '🐣';
+					superEarlyBird = '🐣';
 				}
 			} else if (/말씀/.test(columnName)) {
 				cheer = cell || '';
@@ -88,7 +89,14 @@ export const load = async ({ url, fetch }) => {
 				})
 				.join('')}`;
 		} else {
-			summary = `<div><span class="number">${counts.total}.</span> ${role}${foodTour}${paid}<b>${name}</b><div class="cheer">${cheer}</div></div>`;
+			summary = `<div>
+        <div class="info"><div><span class="number">${
+					counts.total
+				}.</span> ${role} <b>${name}</b></div><div>${
+				superEarlyBird || paid
+			}</div><div>${foodTour}</div></div>
+        <div class="cheer">${cheer}</div>
+    </div>`;
 		}
 
 		rows.push({

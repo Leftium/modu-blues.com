@@ -100,6 +100,13 @@
 		text-overflow: ellipsis;
 	}
 
+    :global(.info) {
+        display: grid;
+
+        grid-template-columns: 62% 1.5rem 1fr;
+
+    }
+
 	:global(.number) {
 		display: inline-block;
 		width: 2rem;
