@@ -55,7 +55,7 @@ export const load = async ({ url, fetch }) => {
 		cells.forEach((cell, index) => {
 			const columnName = columnNames[index];
 
-			if (/^역할/.test(columnName) || /^리드\/팔로우/.test(columnName)) {
+			if (/역할/.test(columnName) || /^리드\/팔로우/.test(columnName)) {
 				if (cell.match(/리더|리드|lead/i)) {
 					role += '🕺';
 					counts.leads++;
