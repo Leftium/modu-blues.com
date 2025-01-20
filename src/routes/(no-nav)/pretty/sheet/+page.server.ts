@@ -73,7 +73,7 @@ export const load = async ({ url, fetch }) => {
 				cheer = cell || '';
 			} else if (/^닉네임/.test(columnName)) {
 				name = cell || '';
-			} else if (/맛집/.test(columnName)) {
+			} else if (/뒷풀이/.test(columnName)) {
 				foodTour = cell.match(/y|네|얍/i) ? '😋' : '';
 			} else if (/연락|contact/i.test(columnName)) {
 				cells[index] = cells[index].replaceAll(/[0-9]/g, '*');
