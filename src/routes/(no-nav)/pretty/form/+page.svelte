@@ -61,6 +61,11 @@
         vertical-align: top;
     }
 
+    main :global(td:first-child p),
+    main :global(td:first-child) {
+        font-weight: bold;
+    }
+
     main :global(img.hero) {
         max-width: 100vw;
         max-height: 25vh;
