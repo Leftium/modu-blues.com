@@ -57,6 +57,10 @@
         overflow-x: hidden;
     }
 
+    main :global(td) {
+        vertical-align: top;
+    }
+
     main :global(img.hero) {
         max-width: 100vw;
         max-height: 25vh;

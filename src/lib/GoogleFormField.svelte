@@ -6,8 +6,13 @@
 	import sup from 'markdown-it-sup';
 	import sub from 'markdown-it-sub';
 
+    import multimdTable from 'markdown-it-multimd-table'
+
 	const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
-	md.use(emoji).use(easyTables).use(sup).use(sub);
+	md.use(emoji).use(sup).use(sub).use(multimdTable, {
+        multiline: true,
+        headerless: true
+    }).use(easyTables);
 
 	import store from 'store';
 	import { browser } from '$app/environment';
