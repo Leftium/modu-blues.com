@@ -63,6 +63,7 @@
 
     main :global(td:first-child p),
     main :global(td:first-child) {
+        min-width: 2em;
         font-weight: bold;
     }
 
