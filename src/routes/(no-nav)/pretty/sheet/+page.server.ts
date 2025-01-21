@@ -21,7 +21,8 @@ export const load = async ({ url, fetch }) => {
 	const counts = {
 		total: 0,
 		leads: 0,
-		follows: 0
+		follows: 0,
+		afterParty: 0
 	};
 
 	const rows: { summary: string; cells: string[] }[] = [];
@@ -50,7 +51,7 @@ export const load = async ({ url, fetch }) => {
 		let role = '';
 		let name = '';
 		let paid = '';
-		let foodTour = '';
+		let afterParty = '';
 		let earlyBird = '';
 
 		counts.total++;
@@ -82,7 +83,10 @@ export const load = async ({ url, fetch }) => {
 			} else if (/^닉네임/.test(columnName)) {
 				name = cell || '';
 			} else if (/뒷풀이/.test(columnName)) {
-				foodTour = cell.match(/y|네|얍/i) ? '😋' : '';
+				if (cell.match(/y|네|얍/i)) {
+					afterParty = '😋';
+					counts.afterParty++;
+				}
 			} else if (/연락|contact/i.test(columnName)) {
 				cells[index] = cells[index].replaceAll(/[0-9]/g, '*');
 			}
@@ -102,7 +106,7 @@ export const load = async ({ url, fetch }) => {
 					counts.total
 				}.</span> ${role} <b>${name}</b></div><div>${
 				earlyBird || paid
-			}</div><div>${foodTour}</div></div>
+			}</div><div>${afterParty}</div></div>
         <div class="cheer">${cheer}</div>
     </div>`;
 		}

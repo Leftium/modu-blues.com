@@ -25,7 +25,10 @@
 
     <center>
         <h1>{data.sheetJson.title}</h1>
-            <h2>{countText}</h2>
+        <h4>{countText}</h4>
+        {#if data.counts.afterParty}
+            <h4>뒷풀이 참석 😋{data.counts.afterParty}</h4>
+        {/if}
     </center>
 
 	<div class="container" class:grid={data.isGridLayout} class:no-grid={!data.isGridLayout}>
