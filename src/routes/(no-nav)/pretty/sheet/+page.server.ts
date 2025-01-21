@@ -22,7 +22,9 @@ export const load = async ({ url, fetch }) => {
 		total: 0,
 		leads: 0,
 		follows: 0,
-		afterParty: 0
+		afterParty: 0,
+		superEarlyBirdLeader: 10,
+		superEarlyBirdFollower: 10
 	};
 
 	const rows: { summary: string; cells: string[] }[] = [];
@@ -73,6 +75,11 @@ export const load = async ({ url, fetch }) => {
 				if (/su/i.test(cell)) {
 					// '_su_per'
 					earlyBird = '🐣';
+					if (/🕺/.test(role)) {
+						counts.superEarlyBirdLeader--;
+					} else {
+						counts.superEarlyBirdFollower--;
+					}
 				} else if (/ea/i.test(cell)) {
 					// '_ea_rly'
 					earlyBird = '🦜';
@@ -136,5 +143,5 @@ export const load = async ({ url, fetch }) => {
 		}
 	}
 
-	return { isGridLayout, counts, columnNames, rows, sheetJson, urlTarget };
+	return { isGridLayout, isVivianBlues, counts, columnNames, rows, sheetJson, urlTarget };
 };

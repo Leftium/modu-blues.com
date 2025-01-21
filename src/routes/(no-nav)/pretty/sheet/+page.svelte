@@ -6,6 +6,10 @@
 			? `${data.counts.total}명 신청 💃${data.counts.follows} 🕺${data.counts.leads}`
 			: `${data.counts.total} Rows`;
 
+        const earlyEggsFollower = '🥚'.repeat(data.counts.superEarlyBirdFollower) || '마감!'
+        const earlyEggsLeader = '🥚'.repeat(data.counts.superEarlyBirdLeader) || '마감!'
+
+
 	function toggleDetails(this: HTMLElement) {
 		const detailsElement = this.classList.contains('details') ? this : this.nextElementSibling;
 
@@ -25,9 +29,14 @@
 
     <center>
         <h1>{data.sheetJson.title}</h1>
-        <h4>{countText}</h4>
+        <h2>{countText}</h2>
         {#if data.counts.afterParty}
-            <h4>뒷풀이 참석 😋{data.counts.afterParty}</h4>
+            <div>뒷풀이 참석 😋{data.counts.afterParty}</div>
+        {/if}
+        {#if data.isVivianBlues}
+            <h2>🥚슈퍼 얼리버드 재고🐣</h2>
+            <div>💃{earlyEggsFollower}</div>
+            <div>🕺{earlyEggsLeader}</div>
         {/if}
     </center>
 
@@ -58,6 +67,15 @@
 	main {
 		padding: 0.2rem 0;
 	}
+
+    h2 {
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+
+    .container {
+        margin-top: 2rem;
+    }
 
 	.container.grid {
 		overflow-x: hidden;
