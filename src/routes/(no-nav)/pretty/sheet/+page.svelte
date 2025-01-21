@@ -3,7 +3,7 @@
 
 	const countText =
 		data.counts.leads || data.counts.follows
-			? `${data.counts.total}명 신청 🕺${data.counts.leads} 💃${data.counts.follows}`
+			? `${data.counts.total}명 신청 💃${data.counts.follows} 🕺${data.counts.leads}`
 			: `${data.counts.total} Rows`;
 
 	function toggleDetails(this: HTMLElement) {
