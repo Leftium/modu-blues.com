@@ -57,6 +57,18 @@
         overflow-x: hidden;
     }
 
+
+
+    main :global(h1 a:first-child:last-child) {
+        text-align: center;
+        display: block;
+    }
+
+    main :global(h6 a:first-child:last-child) {
+        text-align: center;
+        display: block;
+    }
+
     main :global(td) {
         vertical-align: top;
     }
