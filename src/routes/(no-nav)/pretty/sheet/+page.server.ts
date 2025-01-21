@@ -14,6 +14,8 @@ export const load = async ({ url, fetch }) => {
 	// Unwrap from inside meta data.
 	const sheetJson = json.json;
 
+	const isVivianBlues = /블루스 소셜/.test(sheetJson.title);
+
 	let columnNames = sheetJson.values.shift();
 
 	const counts = {
@@ -84,7 +86,7 @@ export const load = async ({ url, fetch }) => {
 			}
 		});
 
-		isGridLayout = !name;
+		isGridLayout = !isVivianBlues || !name;
 
 		if (isGridLayout) {
 			summary = `<div class="number use-grid">${counts.total}.</div>${cells
