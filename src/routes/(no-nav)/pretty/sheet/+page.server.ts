@@ -27,6 +27,7 @@ export const load = async ({ url, fetch }) => {
 	const rows: { summary: string; cells: string[] }[] = [];
 
 	let isGridLayout = false;
+	let cheerIndex = -1;
 
 	sheetJson.values.forEach((cells: string[]) => {
 		if (cells.join('') == '') {
@@ -77,6 +78,7 @@ export const load = async ({ url, fetch }) => {
 				}
 			} else if (/말씀/.test(columnName)) {
 				cheer = cell || '';
+				cheerIndex = index;
 			} else if (/^닉네임/.test(columnName)) {
 				name = cell || '';
 			} else if (/뒷풀이/.test(columnName)) {
@@ -113,6 +115,21 @@ export const load = async ({ url, fetch }) => {
 
 	if (!isGridLayout) {
 		rows.reverse();
+
+		if (cheerIndex !== -1) {
+			rows.sort(function (a, b) {
+				const aHasCheer = a.cells[cheerIndex]?.length > 0;
+				const bHasCheer = b.cells[cheerIndex]?.length > 0;
+
+				if (aHasCheer && !bHasCheer) {
+					return -1;
+				}
+				if (!aHasCheer && bHasCheer) {
+					return 1;
+				}
+				return 0;
+			});
+		}
 	}
 
 	return { isGridLayout, counts, columnNames, rows, sheetJson, urlTarget };
