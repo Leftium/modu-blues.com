@@ -53,6 +53,22 @@
 		text-align: center;
 	}
 
+    :global(body) {
+        overflow-x: hidden;
+    }
+
+    main :global(img.hero) {
+        max-width: 100vw;
+        max-height: 25vh;
+        width: 100vw;
+
+
+        margin-left: -50vw;
+        margin-right: -50vw;
+
+        object-fit: cover;
+    }
+
 	.success {
 		color: green;
 		font-weight: bold;
