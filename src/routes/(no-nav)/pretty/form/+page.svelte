@@ -124,6 +124,7 @@
     main :global(.simpleParallax) {
         max-width: min(100svw, 1450px);
         max-height: 30svh;
+        height: 30svh;
         width: 100svw;
 
 
