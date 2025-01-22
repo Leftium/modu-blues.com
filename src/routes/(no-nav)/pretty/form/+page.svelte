@@ -96,6 +96,10 @@
         margin-bottom: .2em;
     }
 
+    main :global(li) {
+        font-family: Lato;
+    }
+
    	main :global(li::marker) {
 		color: rgba(0, 0, 0, 0.15);
 	}
