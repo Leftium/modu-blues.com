@@ -97,7 +97,7 @@
     }
 
     main :global(li) {
-        font-family: Lato;
+        font-family: Lato, sans-serif;
     }
 
    	main :global(li::marker) {
