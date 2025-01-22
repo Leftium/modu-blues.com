@@ -120,7 +120,7 @@
 
     main :global(img.hero) {
         max-width: min(100svw, 1450px);
-        max-height: 12rem;
+        max-height: 30svh;
         width: 100svw;
 
 
