@@ -1,5 +1,20 @@
 <script lang="ts">
 	import GoogleFormField from '$lib/GoogleFormField.svelte';
+	import { onDestroy, onMount } from 'svelte';
+
+    let instance: { destroy: () => void; } | null = null;
+    onMount(async () => {
+        const {default: SimpleParallax} = await import('simple-parallax-js/vanilla');
+
+        const image = document.getElementsByClassName('hero');
+        instance = new SimpleParallax(image);
+    })
+
+    onDestroy(() => {
+        if (instance) {
+            instance.destroy()
+        }
+    })
 
 	export let data;
 
@@ -102,7 +117,7 @@
     }
 
 
-    main :global(img.hero) {
+    main :global(.simpleParallax) {
         max-width: min(100svw, 1450px);
         max-height: 30svh;
         width: 100svw;
@@ -116,31 +131,31 @@
 
 
     @media (min-width: 576px) {
-        main :global(img.hero) {
+        main :global(.simpleParallax) {
             max-width: min(100svw, 510px);
         }
     }
 
     @media (min-width: 768px) {
-        main :global(img.hero) {
+        main :global(.simpleParallax) {
             max-width: min(100svw, 700px);
         }
     }
 
     @media (min-width: 1024px) {
-        main :global(img.hero) {
+        main :global(.simpleParallax) {
             max-width: min(100svw, 950px);
         }
     }
 
     @media (min-width: 1280px) {
-        main :global(img.hero) {
+        main :global(.simpleParallax) {
             max-width: min(100svw, 1200px);
         }
     }
 
     @media (min-width: 1536px) {
-        main :global(img.hero) {
+        main :global(.simpleParallax) {
             max-width: min(100svw, 1450px);
         }
     }
