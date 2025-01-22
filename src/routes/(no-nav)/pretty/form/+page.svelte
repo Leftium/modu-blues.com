@@ -7,7 +7,11 @@
         const {default: SimpleParallax} = await import('simple-parallax-js/vanilla');
 
         const image = document.getElementsByClassName('hero');
-        instance = new SimpleParallax(image);
+        instance = new SimpleParallax(image, {
+            delay: 1,
+            scale: 1.5,
+            transition: 'cubic-bezier(0,0,0,1)'
+        });
     })
 
     onDestroy(() => {
