@@ -209,7 +209,7 @@ function adjustGoogleFormData(json: Form) {
 	};
 
 	// Insert initial TITLE_AND_DESCRIPTION after first item if image/video:
-	const insertIndex = ['IMAGE', 'VIDEO'].includes(newJson.fields[0]?.type) ? 1 : 0;
+	const insertIndex = false && ['IMAGE', 'VIDEO'].includes(newJson.fields[0]?.type) ? 1 : 0;
 
 	newJson.fields.splice(insertIndex, 0, {
 		itemId: 0,
