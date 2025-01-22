@@ -57,16 +57,22 @@
         overflow-x: hidden;
     }
 
-
-
-    main :global(h1 a:first-child:last-child) {
-        text-align: center;
-        display: block;
+    main {
+        max-width: 40ch;
     }
 
+
+    main :global(h1),
+    main :global(h6) {
+        margin-top: 0em;
+        margin-bottom: 0em;
+    }
+
+    main :global(h1 a:first-child:last-child),
+    main :global(h2),
     main :global(h6 a:first-child:last-child) {
-        text-align: center;
         display: block;
+        text-align: center;
     }
 
     main :global(td) {
@@ -77,16 +83,27 @@
     main :global(td:first-child) {
         min-width: 2em;
         font-weight: bold;
+        text-wrap: nowrap;
+    }
+
+    main :global(ul) {
+        padding-left: 0px;
+        margin-bottom: .2em;
+    }
+
+    main :global(ul a),
+    main :global(td p) {
+        margin-bottom: .2em;
     }
 
     main :global(img.hero) {
-        max-width: 100vw;
-        max-height: 25vh;
-        width: 100vw;
+        max-width: 100svw;
+        max-height: 12rem;
+        width: 100svw;
 
 
-        margin-left: -50vw;
-        margin-right: -50vw;
+        margin-left: -50svw;
+        margin-right: -50svw;
 
         object-fit: cover;
     }
