@@ -97,26 +97,10 @@
     }
 
     main :global(li) {
+        list-style-type: none;
         font-family: Lato, sans-serif;
     }
 
-   	main :global(li::marker) {
-		color: rgba(0, 0, 0, 0.15);
-	}
-
-   	@mixin dark-marker {
-		main :global(li::marker) {
-			color: rgba(255, 255, 255, 0.3);
-		}
-	}
-
-	@media only screen and (prefers-color-scheme: dark) {
-		@include dark-marker;
-	}
-
-	[data-theme='dark'] {
-		@include dark-marker;
-	}
 
     main :global(img.hero) {
         max-width: min(100svw, 1450px);
