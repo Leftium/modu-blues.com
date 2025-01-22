@@ -119,7 +119,7 @@
 	}
 
     main :global(img.hero) {
-        max-width: 100svw;
+        max-width: min(100svw, 1450px);
         max-height: 12rem;
         width: 100svw;
 
@@ -129,6 +129,45 @@
 
         object-fit: cover;
     }
+
+
+    @media (min-width: 576px) {
+        main :global(img.hero) {
+            max-width: min(100svw, 510px);
+        }
+    }
+
+    @media (min-width: 768px) {
+        main :global(img.hero) {
+            max-width: min(100svw, 700px);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        main :global(img.hero) {
+            max-width: min(100svw, 950px);
+        }
+    }
+
+    @media (min-width: 1280px) {
+        main :global(img.hero) {
+            max-width: min(100svw, 1200px);
+        }
+    }
+
+    @media (min-width: 1536px) {
+        main :global(img.hero) {
+            max-width: min(100svw, 1450px);
+        }
+    }
+
+
+
+
+
+
+
+
 
 	.success {
 		color: green;
