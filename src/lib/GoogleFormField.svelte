@@ -105,7 +105,7 @@
 				<h1>{@html parseMarkdown(field.title)}</h1>
 			</center>
 		{/if}
-		<center><img src={field.imgUrl} alt="" class:hero={field?.title === 'hero'} /></center>
+		<center><img src={field.imgUrl?.replace(/=w\d+$/i, '')} alt="" class:hero={field?.title === 'hero'} /></center>
 	{:else if field.type === 'VIDEO'}
 		<center>
 			<div class="wrap-youtube">
