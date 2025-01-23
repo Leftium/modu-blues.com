@@ -32,6 +32,19 @@
         background-color: #eee;
     }
 
+    nav {
+        background-image: url(https://lh3.googleusercontent.com/j43E_euuaVMRuQ1DWTspgSDrVUt0a-1jeyUJRAyHmCtgqLTM-DG65Fg-8bwVZabcAYFNRUI8EEbWMAAgCNbL5tyYdjL9yDSqO5jwwl7i3BFXcdzScRqGRNDCmRLptI-qHZeTuWsSLg=w940);
+        background-size: cover;
+        background-position: center;
+        background-color: #0b4474;
+
+        height: min(280px, 20svh);
+
+        & * {
+            color: white;
+        }
+    }
+
     @mixin dark-background {
         :global(body) {
             background-color: #111;
@@ -60,6 +73,7 @@
 
     main.container {
         background-color: var(--pico-background-color);
+        padding: 0;
     }
 
 

@@ -77,6 +77,7 @@
     }
 
     main {
+        padding-top: 1em;
         max-width: 40ch;
     }
 
