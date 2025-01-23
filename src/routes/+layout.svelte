@@ -28,6 +28,7 @@
 </main>
 
 <style lang=scss>
+    :global(html),
     :global(body) {
         background-color: #eee;
     }

@@ -74,7 +74,7 @@
     }
 
     .container {
-        margin-top: 2rem;
+        padding-top: 2rem;
     }
 
 	.container.grid {
