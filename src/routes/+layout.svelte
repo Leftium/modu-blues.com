@@ -59,18 +59,6 @@
 		@include dark-background;
 	}
 
-    main :global(img.hero) {
-        max-width: min(100svw, 1450px);
-        max-height: 12rem;
-        width: 100svw;
-
-
-        margin-left: -50svw;
-        margin-right: -50svw;
-
-        object-fit: cover;
-    }
-
     main.container {
         background-color: var(--pico-background-color);
         padding: 0;

@@ -9,7 +9,7 @@
         const image = document.getElementsByClassName('hero');
         instance = new SimpleParallax(image, {
             delay: 1,
-            scale: 1.5,
+            scale: 1.6,
             transition: 'cubic-bezier(0,0,0,1)'
         });
     })
@@ -123,11 +123,11 @@
 
 
     main :global(.simpleParallax) {
-        max-width: min(100svw, 1450px);
-        max-height: 30svh;
-        height: 30svh;
         width: 100svw;
+        aspect-ratio: 16 / 9;
 
+        max-width: min(100svw, 1450px);
+        max-height: 35svh;
 
         margin-left: -50svw;
         margin-right: -50svw;
