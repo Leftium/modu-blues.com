@@ -5,11 +5,16 @@
 	import easyTables from 'markdown-it-easy-tables';
 	import sup from 'markdown-it-sup';
 	import sub from 'markdown-it-sub';
+    import deflist from 'markdown-it-deflist'
 
     import multimdTable from 'markdown-it-multimd-table'
 
 	const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
-	md.use(emoji).use(sup).use(sub).use(multimdTable, {
+	md.use(emoji)
+      .use(sup)
+      .use(sub)
+      .use(deflist)
+      .use(multimdTable, {
         multiline: true,
         headerless: true
     }).use(easyTables);

@@ -50,6 +50,9 @@ importers:
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
+      markdown-it-deflist:
+        specifier: ^3.0.0
+        version: 3.0.0
       markdown-it-easy-tables:
         specifier: ^0.1.1
         version: 0.1.1
@@ -863,6 +866,9 @@ packages:
   magic-string@0.30.5:
     resolution: {integrity: sha512-7xlpfBaQaP/T6Vh8MO/EqXSW5En6INHEvEXQiuff7Gku0PWjU3uf6w/j9o7O+SpB5fOAkrI5HeoNgwjEO0pFsA==}
     engines: {node: '>=12'}
+
+  markdown-it-deflist@3.0.0:
+    resolution: {integrity: sha512-OxPmQ/keJZwbubjiQWOvKLHwpV2wZ5I3Smc81OjhwbfJsjdRrvD5aLTQxmZzzePeO0kbGzAo3Krk4QLgA8PWLg==}
 
   markdown-it-easy-tables@0.1.1:
     resolution: {integrity: sha512-HB86EuzN+Xv5iicLnRIOnS+DM0sU0inf3aeFLPNAZftv8zf5DFcdnbwu8rf4ZO3B1an01DUhu081ZI9m6akFqw==}
@@ -2126,6 +2132,8 @@ snapshots:
   magic-string@0.30.5:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  markdown-it-deflist@3.0.0: {}
 
   markdown-it-easy-tables@0.1.1: {}
 
