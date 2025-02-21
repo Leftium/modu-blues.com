@@ -2,24 +2,6 @@
 	import GoogleFormField from '$lib/GoogleFormField.svelte';
 	import { onDestroy, onMount } from 'svelte';
 
-    let instance: { destroy: () => void; } | null = null;
-    onMount(async () => {
-        const {default: SimpleParallax} = await import('simple-parallax-js/vanilla');
-
-        const image = document.getElementsByClassName('hero');
-        instance = new SimpleParallax(image, {
-            delay: 1,
-            scale: 1.6,
-            transition: 'cubic-bezier(0,0,0,1)'
-        });
-    })
-
-    onDestroy(() => {
-        if (instance) {
-            instance.destroy()
-        }
-    })
-
 	export let data;
 
 	export let form;
@@ -66,112 +48,101 @@
 	</div>
 </main>
 
-<style lang=scss>
+<style lang="scss">
 	article {
 		margin-top: 1em;
 		text-align: center;
 	}
 
-    :global(body) {
-        overflow-x: hidden;
-    }
+	:global(body) {
+		overflow-x: hidden;
+	}
 
-    main {
-        padding-top: 1em;
-        max-width: 40ch;
-    }
+	main {
+		padding-top: 1em;
+		max-width: 40ch;
+	}
 
+	main :global(h1),
+	main :global(h6) {
+		margin-top: 0em;
+		margin-bottom: 0em;
+	}
 
-    main :global(h1),
-    main :global(h6) {
-        margin-top: 0em;
-        margin-bottom: 0em;
-    }
+	main :global(h1 a:first-child:last-child),
+	main :global(h2),
+	main :global(h6 a:first-child:last-child) {
+		display: block;
+		text-align: center;
+	}
 
-    main :global(h1 a:first-child:last-child),
-    main :global(h2),
-    main :global(h6 a:first-child:last-child) {
-        display: block;
-        text-align: center;
-    }
+	main :global(td) {
+		vertical-align: top;
+	}
 
-    main :global(td) {
-        vertical-align: top;
-    }
+	main :global(td:first-child p),
+	main :global(td:first-child) {
+		min-width: 2em;
+		font-weight: bold;
+		text-wrap: nowrap;
+	}
 
-    main :global(td:first-child p),
-    main :global(td:first-child) {
-        min-width: 2em;
-        font-weight: bold;
-        text-wrap: nowrap;
-    }
+	main :global(ul) {
+		padding-left: 0px;
+		margin-bottom: 0.2em;
+	}
 
-    main :global(ul) {
-        padding-left: 0px;
-        margin-bottom: .2em;
-    }
+	main :global(ul a),
+	main :global(td p) {
+		margin-bottom: 0.2em;
+	}
 
-    main :global(ul a),
-    main :global(td p) {
-        margin-bottom: .2em;
-    }
+	main :global(li) {
+		font-family: Lato, sans-serif;
+	}
 
-    main :global(li) {
-        font-family: Lato, sans-serif;
-    }
+	main :global(.simpleParallax) {
+		width: 100svw;
+		aspect-ratio: 16 / 9;
 
+		max-width: min(100svw, 1450px);
+		max-height: 35svh;
 
-    main :global(.simpleParallax) {
-        width: 100svw;
-        aspect-ratio: 16 / 9;
+		margin-left: -50svw;
+		margin-right: -50svw;
 
-        max-width: min(100svw, 1450px);
-        max-height: 35svh;
+		object-fit: cover;
+	}
 
-        margin-left: -50svw;
-        margin-right: -50svw;
+	@media (min-width: 576px) {
+		main :global(.simpleParallax) {
+			max-width: min(100svw, 510px);
+		}
+	}
 
-        object-fit: cover;
-    }
+	@media (min-width: 768px) {
+		main :global(.simpleParallax) {
+			max-width: min(100svw, 700px);
+		}
+	}
 
+	@media (min-width: 1024px) {
+		main :global(.simpleParallax) {
+			max-width: min(100svw, 950px);
+		}
+	}
 
-    @media (min-width: 576px) {
-        main :global(.simpleParallax) {
-            max-width: min(100svw, 510px);
-        }
-    }
+	@media (min-width: 1280px) {
+		main :global(.simpleParallax) {
+			max-width: min(100svw, 1200px);
+		}
+	}
 
-    @media (min-width: 768px) {
-        main :global(.simpleParallax) {
-            max-width: min(100svw, 700px);
-        }
-    }
-
-    @media (min-width: 1024px) {
-        main :global(.simpleParallax) {
-            max-width: min(100svw, 950px);
-        }
-    }
-
-    @media (min-width: 1280px) {
-        main :global(.simpleParallax) {
-            max-width: min(100svw, 1200px);
-        }
-    }
-
-    @media (min-width: 1536px) {
-        main :global(.simpleParallax) {
-            max-width: min(100svw, 1450px);
-        }
-    }
-
-
-
-
-
-
-
-
+	@media (min-width: 1536px) {
+		main :global(.simpleParallax) {
+			max-width: min(100svw, 1450px);
+		}
+	}
 
 	.success {
 		color: green;

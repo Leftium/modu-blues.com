@@ -5,22 +5,24 @@
 	import easyTables from 'markdown-it-easy-tables';
 	import sup from 'markdown-it-sup';
 	import sub from 'markdown-it-sub';
-    import deflist from 'markdown-it-deflist'
+	import deflist from 'markdown-it-deflist';
 
-    import multimdTable from 'markdown-it-multimd-table'
+	import multimdTable from 'markdown-it-multimd-table';
 
 	const md = new MarkdownIt({ html: true, linkify: true, typographer: true, breaks: true });
 	md.use(emoji)
-      .use(sup)
-      .use(sub)
-      .use(deflist)
-      .use(multimdTable, {
-        multiline: true,
-        headerless: true
-    }).use(easyTables);
+		.use(sup)
+		.use(sub)
+		.use(deflist)
+		.use(multimdTable, {
+			multiline: true,
+			headerless: true
+		})
+		.use(easyTables);
 
 	import store from 'store';
 	import { browser } from '$app/environment';
+	import { parallax } from './parallax';
 
 	// Props:
 	export let field: Question;
@@ -105,7 +107,13 @@
 				<h1>{@html parseMarkdown(field.title)}</h1>
 			</center>
 		{/if}
-		<center><img src={field.imgUrl?.replace(/=w\d+$/i, '')} alt="" class:hero={field?.title === 'hero'} /></center>
+		<center>
+			<img
+				src={field.imgUrl?.replace(/=w\d+$/i, '')}
+				use:parallax={{ hero: field.title === 'hero' }}
+				alt=""
+			/>
+		</center>
 	{:else if field.type === 'VIDEO'}
 		<center>
 			<div class="wrap-youtube">
