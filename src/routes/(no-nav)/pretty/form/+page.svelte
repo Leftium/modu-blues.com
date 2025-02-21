@@ -117,7 +117,6 @@
     }
 
     main :global(li) {
-        list-style-type: none;
         font-family: Lato, sans-serif;
     }
 
