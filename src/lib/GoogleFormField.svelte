@@ -102,18 +102,20 @@
 		</center>
 		{@html parseMarkdown(field.description)}
 	{:else if field.type === 'IMAGE'}
-		{#if field.title && field.title !== 'hero'}
+		{#key field.title}
+			{#if field.title && field.title !== 'hero'}
+				<center>
+					<h1>{@html parseMarkdown(field.title)}</h1>
+				</center>
+			{/if}
 			<center>
-				<h1>{@html parseMarkdown(field.title)}</h1>
+				<img
+					src={field.imgUrl?.replace(/=w\d+$/i, '')}
+					use:parallax={{ hero: field.title === 'hero' }}
+					alt=""
+				/>
 			</center>
-		{/if}
-		<center>
-			<img
-				src={field.imgUrl?.replace(/=w\d+$/i, '')}
-				use:parallax={{ hero: field.title === 'hero' }}
-				alt=""
-			/>
-		</center>
+		{/key}
 	{:else if field.type === 'VIDEO'}
 		<center>
 			<div class="wrap-youtube">
