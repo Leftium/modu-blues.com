@@ -25,19 +25,18 @@
 </svelte:head>
 
 <main class="container">
-
-    <center>
-        <h1>{data.sheetJson.title}</h1>
-        <h2>{countText}</h2>
-        {#if data.counts.afterParty}
-            <div>뒷풀이 참석 😋{data.counts.afterParty}</div>
-        {/if}
-        {#if data.isVivianBlues}
-            <h2>🥚슈퍼 얼리버드 재고🐣</h2>
-            <div>💃{earlyEggsFollower}</div>
-            <div>🕺{earlyEggsLeader}</div>
-        {/if}
-    </center>
+	<center>
+		<h1>{data.sheetJson.title}</h1>
+		<h2>{countText}</h2>
+		{#if data.counts.afterParty}
+			<div>뒷풀이 참석 😋{data.counts.afterParty}</div>
+		{/if}
+		{#if data.isVivianBlues}
+			<h2>🥚슈퍼 얼리버드 재고🐣</h2>
+			<div>💃{earlyEggsFollower}</div>
+			<div>🕺{earlyEggsLeader}</div>
+		{/if}
+	</center>
 
 	<div class="container" class:grid={data.isGridLayout} class:no-grid={!data.isGridLayout}>
 		{#each data.rows as row}
@@ -52,7 +51,7 @@
 		{/each}
 	</div>
 
-    <center><a href={data.urlTarget}>Original Google Sheet</a></center>
+	<center><a href={data.urlTarget}>Original Google Sheet</a></center>
 
 	<div hidden>
 		<pre>{JSON.stringify(data.counts, null, 4)}</pre>
@@ -67,14 +66,14 @@
 		padding: 0.2rem 0;
 	}
 
-    h2 {
-        margin-top: 1em;
-        margin-bottom: 0;
-    }
+	h2 {
+		margin-top: 1em;
+		margin-bottom: 0;
+	}
 
-    .container {
-        padding-top: 2rem;
-    }
+	.container {
+		padding-top: 2rem;
+	}
 
 	.container.grid {
 		overflow-x: hidden;
@@ -93,7 +92,7 @@
 	}
 
 	.summary {
-        font-family: Lato, sans-serif;
+		font-family: Lato, sans-serif;
 		font-weight: 500;
 	}
 
@@ -120,12 +119,11 @@
 		text-overflow: ellipsis;
 	}
 
-    :global(.info) {
-        display: grid;
+	:global(.info) {
+		display: grid;
 
-        grid-template-columns: 62% 1.5rem 1fr;
-
-    }
+		grid-template-columns: 62% 1.5rem 1fr;
+	}
 
 	:global(.number) {
 		display: inline-block;
