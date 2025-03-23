@@ -6,9 +6,8 @@
 			? `${data.counts.total}명 신청 💃${data.counts.follows} 🕺${data.counts.leads}`
 			: `${data.counts.total} Rows`;
 
-        const earlyEggsFollower = '🥚'.repeat(data.counts.superEarlyBirdFollower) || '마감!'
-        const earlyEggsLeader = '🥚'.repeat(data.counts.superEarlyBirdLeader) || '마감!'
-
+	const earlyEggsFollower = '🥚'.repeat(Math.max(0, data.counts.superEarlyBirdFollower)) || '마감!';
+	const earlyEggsLeader = '🥚'.repeat(Math.max(0, data.counts.superEarlyBirdLeader)) || '마감!';
 
 	function toggleDetails(this: HTMLElement) {
 		const detailsElement = this.classList.contains('details') ? this : this.nextElementSibling;
