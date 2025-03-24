@@ -98,7 +98,7 @@
 <section class:has-input={!!field.inputIndex}>
 	{#if field.type === 'TITLE_AND_DESCRIPTION'}
 		<center>
-			<h1>{@html parseMarkdown(field.title)}</h1>
+			<h3>{@html parseMarkdown(field.title)}</h3>
 		</center>
 		{@html parseMarkdown(field.description)}
 	{:else if field.type === 'IMAGE'}
