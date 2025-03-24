@@ -27,7 +27,7 @@ export const load = async ({ url, fetch }) => {
 		superEarlyBirdFollower: 10
 	};
 
-	const rows: { summary: string; cells: string[] }[] = [];
+	let rows: { summary: string; cells: string[] }[] = [];
 
 	let isGridLayout = false;
 	let cheerIndex = -1;
@@ -109,9 +109,7 @@ export const load = async ({ url, fetch }) => {
 				.join('')}`;
 		} else {
 			summary = `<div>
-        <div class="info"><div><span class="number">${
-					counts.total
-				}.</span> ${role} <b>${name}</b></div><div>${
+        <div class="info"><div><span class="number">${'counts.total'}.</span> ${role} <b>${name}</b></div><div>${
 				earlyBird || paid
 			}</div><div>${afterParty}</div></div>
         <div class="cheer">${cheer}</div>
@@ -141,6 +139,14 @@ export const load = async ({ url, fetch }) => {
 				return 0;
 			});
 		}
+
+		// Calculate numbers after sorting:
+		rows = rows.map((row, index) => {
+			if (row.summary) {
+				row.summary = row.summary.replace('counts.total', `${rows.length - index}`);
+			}
+			return row;
+		});
 	}
 
 	return { isGridLayout, isVivianBlues, counts, columnNames, rows, sheetJson, urlTarget };
