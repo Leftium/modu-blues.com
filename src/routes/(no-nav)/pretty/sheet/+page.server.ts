@@ -22,9 +22,7 @@ export const load = async ({ url, fetch }) => {
 		total: 0,
 		leads: 0,
 		follows: 0,
-		afterParty: 0,
-		superEarlyBirdLeader: 10,
-		superEarlyBirdFollower: 10
+		afterParty: 0
 	};
 
 	let rows: { summary: string; cells: string[] }[] = [];
@@ -54,7 +52,6 @@ export const load = async ({ url, fetch }) => {
 		let name = '';
 		let paid = '';
 		let afterParty = '';
-		let earlyBird = '';
 
 		counts.total++;
 
@@ -72,18 +69,6 @@ export const load = async ({ url, fetch }) => {
 				}
 			} else if (/^입금(여부|확인)/.test(columnName)) {
 				paid = cell ? '💰' : '';
-				if (/su/i.test(cell)) {
-					// '_su_per'
-					earlyBird = '🐣';
-					if (/🕺/.test(role)) {
-						counts.superEarlyBirdLeader--;
-					} else {
-						counts.superEarlyBirdFollower--;
-					}
-				} else if (/ea/i.test(cell)) {
-					// '_ea_rly'
-					earlyBird = '🦜';
-				}
 			} else if (/말씀/.test(columnName)) {
 				cheer = cell || '';
 				cheerIndex = index;
@@ -109,9 +94,7 @@ export const load = async ({ url, fetch }) => {
 				.join('')}`;
 		} else {
 			summary = `<div>
-        <div class="info"><div><span class="number">${'counts.total'}.</span> ${role} <b>${name}</b></div><div>${
-				earlyBird || paid
-			}</div><div>${afterParty}</div></div>
+        <div class="info"><div><span class="number">${'counts.total'}.</span> ${role} <b>${name}</b></div><div>${paid}</div><div>${afterParty}</div></div>
         <div class="cheer">${cheer}</div>
     </div>`;
 		}

@@ -6,9 +6,6 @@
 			? `${data.counts.total}명 신청 💃${data.counts.follows} 🕺${data.counts.leads}`
 			: `${data.counts.total} Rows`;
 
-	const earlyEggsFollower = '🥚'.repeat(Math.max(0, data.counts.superEarlyBirdFollower)) || '마감!';
-	const earlyEggsLeader = '🥚'.repeat(Math.max(0, data.counts.superEarlyBirdLeader)) || '마감!';
-
 	function toggleDetails(this: HTMLElement) {
 		const detailsElement = this.classList.contains('details') ? this : this.nextElementSibling;
 
@@ -30,11 +27,6 @@
 		<h2>{countText}</h2>
 		{#if data.counts.afterParty}
 			<div>뒷풀이 참석 😋{data.counts.afterParty}</div>
-		{/if}
-		{#if data.isVivianBlues}
-			<h2>🥚슈퍼 얼리버드 재고🐣</h2>
-			<div>💃{earlyEggsFollower}</div>
-			<div>🕺{earlyEggsLeader}</div>
 		{/if}
 	</center>
 
