@@ -11,6 +11,13 @@ export const load = async ({ url, fetch }) => {
 
 	const json = await resp.json();
 
+	if (json.json.error) {
+		return {
+			error: json.json.error,
+			url: json.locator
+		};
+	}
+
 	// Unwrap from inside meta data.
 	const sheetJson = json.json;
 
