@@ -23,7 +23,9 @@
 </svelte:head>
 
 {#if data.error}
-	<p>There was an error reading the Google sheet at: <a href={data.url}>{data.url}</a>.</p>
+	<p>
+		There was an error reading the Google sheet at: <a href={data.error.url}>{data.error.url}</a>.
+	</p>
 	<p>
 		Please make sure this link is valid and the sheet has been shared so anyone with the link can
 		read it.

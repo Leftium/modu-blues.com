@@ -13,8 +13,10 @@ export const load = async ({ url, fetch }) => {
 
 	if (json.json.error) {
 		return {
-			error: json.json.error,
-			url: json.locator
+			error: {
+				...json.json.error,
+				url: urlTarget
+			}
 		};
 	}
 
