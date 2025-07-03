@@ -24,6 +24,7 @@ export const load = async ({ url, fetch }) => {
 	const sheetJson = json.json;
 
 	const isVivianBlues = /블파/.test(sheetJson.title);
+	const isPracticeGroup = /연습모임/.test(sheetJson.title) 
 
 	let columnNames = sheetJson.values.shift();
 
@@ -93,7 +94,7 @@ export const load = async ({ url, fetch }) => {
 			}
 		});
 
-		isGridLayout = !isVivianBlues || !name;
+		isGridLayout = !(isVivianBlues || isPracticeGroup) || !name;
 
 		if (isGridLayout) {
 			summary = `<div class="number use-grid">${counts.total}.</div>${cells

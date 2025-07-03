@@ -290,7 +290,7 @@ function adjustGoogleSheetData(json: { properties: { title: string }; sheets: { 
 	const timestamps: (Date | null)[][] = [];
 
 	const values = data.rowData
-		.filter((_: unknown, rowIndex: number) => !rowHiddenByUser[rowIndex])
+		.filter((row: any[], rowIndex: number) => !rowHiddenByUser[rowIndex] && row.values)
 		.map((rowDatum: { values: any[] }, rowIndex: number) => {
 			timestamps.push([]);
 			return rowDatum.values
