@@ -34,7 +34,7 @@
 	<b>Detailed error info:</b>
 	<pre>{JSON.stringify(data.error, null, 4)}</pre>
 {:else if data.rows}
-	<main class="container">
+	<main>
 		<center>
 			<h1>{data?.sheetJson?.title}</h1>
 			<h2>{countText}</h2>

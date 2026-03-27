@@ -30,7 +30,7 @@
 	}
 </script>
 
-<main class="container">
+<main>
 	<form method="POST">
 		<h4>URL of Google Form/Sheet</h4>
 		<input bind:value={url} on:focus={handleFocus} />

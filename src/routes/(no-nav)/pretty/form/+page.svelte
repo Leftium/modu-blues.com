@@ -11,7 +11,7 @@
 	<title>{data.formJson?.title}</title>
 </svelte:head>
 
-<main class="container">
+<main>
 	{#if form?.success || form?.status}
 		<article>
 			{#if form?.success}
@@ -61,6 +61,7 @@
 	main {
 		padding-top: 1em;
 		max-width: 40ch;
+		margin-inline: auto;
 	}
 
 	main :global(h1),

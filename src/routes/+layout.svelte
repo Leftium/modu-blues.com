@@ -7,7 +7,7 @@
 	const menuItems = (routes: any[]) => routes.filter((route) => !!route.title);
 </script>
 
-<main class="container">
+<main>
     {#if !/^\/\(no-nav\)/.test($page.route.id || '')}
 	<nav>
 		<ul>
@@ -41,6 +41,13 @@
 
         height: min(280px, 20svh);
 
+        // Full-bleed: escape main's padding to reach viewport edges
+        margin-inline: calc(var(--nc-spacing) * -1);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         & * {
             color: white;
         }
@@ -60,18 +67,21 @@
 		@include dark-background;
 	}
 
-    main.container {
-        background-color: var(--pico-background-color);
-        padding: 0;
+    main {
+        background-color: var(--nc-surface-1);
+        padding: var(--nc-spacing);
+        padding-block-start: 0;
     }
 
-
-	:h1 {
-		--pico-font-size: 1.6em;
-	}
-
-	nav {
+	nav ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		list-style: none;
+		padding: 0;
+		margin: 0;
 		justify-content: center;
+		align-items: center;
 	}
 
 	nav li {

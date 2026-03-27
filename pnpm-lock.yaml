@@ -15,9 +15,9 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(@sveltejs/kit@1.25.2(svelte@4.2.1)(vite@4.4.11(sass@1.69.3)))(react@19.0.0)(svelte@4.2.1)
     devDependencies:
-      '@picocss/pico':
-        specifier: 2.0.0-alpha1
-        version: 2.0.0-alpha1
+      '@leftium/nimble.css':
+        specifier: ^0.4.0
+        version: 0.4.0
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
         version: 2.1.0(@sveltejs/kit@1.25.2(svelte@4.2.1)(vite@4.4.11(sass@1.69.3)))
@@ -302,6 +302,9 @@ packages:
   '@jridgewell/trace-mapping@0.3.19':
     resolution: {integrity: sha512-kf37QtfW+Hwx/buWGMPcR60iF9ziHa6r/CZJIHbmcm4+0qrXiVdxegAH0F6yddEVQ7zdkjcGCgCzUu+BcbhQxw==}
 
+  '@leftium/nimble.css@0.4.0':
+    resolution: {integrity: sha512-P3DUmG5V1c9odROEKCSLGLASX0ILVeBa1J+R6IZs4t8uUNGLal5Zxx8jJyUxO2OnjUpAHwHb5f8P3kEdICuzWw==}
+
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -313,9 +316,6 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
-
-  '@picocss/pico@2.0.0-alpha1':
-    resolution: {integrity: sha512-DIMBG+ssQHVKEkQuwUs3mfBqNotxIH59xCmrMA8jCtm0CyRmc8p+VfMW1YeBZpeEY/WiKNw8GTefpoLBFvdpug==}
 
   '@polka/url@1.0.0-next.23':
     resolution: {integrity: sha512-C16M+IYz0rgRhWZdCmK+h58JMv8vijAA61gmz2rspCSwKwzBebpdcsiUmwrtJRdphuY30i6BSLEOP8ppbNLyLg==}
@@ -1523,6 +1523,8 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
+  '@leftium/nimble.css@0.4.0': {}
+
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -1534,8 +1536,6 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
-
-  '@picocss/pico@2.0.0-alpha1': {}
 
   '@polka/url@1.0.0-next.23': {}
 
